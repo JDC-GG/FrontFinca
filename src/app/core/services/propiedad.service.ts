@@ -12,7 +12,7 @@ export class PropiedadService {
     return this.api.get<Propiedad[]>('propiedades');
   }
 
-  createPropiedad(propiedad: Propiedad) {
+  crearPropiedad(propiedad: Propiedad) {
     return this.api.post<Propiedad>('propiedades', propiedad);
   }
 }
