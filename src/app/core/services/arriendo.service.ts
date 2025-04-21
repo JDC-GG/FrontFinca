@@ -1,18 +1,43 @@
+// src/app/core/services/arriendo.service.ts
 import { Injectable } from '@angular/core';
-import { ApiService } from './api.service';
-import { Arriendo } from '../../models/arriendo.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { arriendo } from '../../models/arriendo.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArriendoService {
-  constructor(private api: ApiService) { }
+  private apiUrl = `${environment.apiUrl}/solicitudes`;
 
-  getArriendos() {
-    return this.api.get<Arriendo[]>('arriendos');
+  constructor(private http: HttpClient) { }
+
+  getArriendos(): Observable<arriendo[]> {
+    return this.http.get<arriendo[]>(this.apiUrl);
   }
 
-  crearSolicitud(arriendo: Arriendo) {
-    return this.api.post<Arriendo>('arriendos', arriendo);
+  getArriendo(id: number): Observable<arriendo> {
+    return this.http.get<arriendo>(`${this.apiUrl}/${id}`);
+  }
+
+  createArriendo(arriendo: arriendo): Observable<arriendo> {
+    return this.http.post<arriendo>(this.apiUrl, arriendo);
+  }
+
+  updateArriendo(id: number, arriendo: arriendo): Observable<arriendo> {
+    return this.http.put<arriendo>(`${this.apiUrl}/${id}`, arriendo);
+  }
+
+  deleteArriendo(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  getArriendosPorPropiedad(propiedadId: number): Observable<arriendo[]> {
+    return this.http.get<arriendo[]>(`${this.apiUrl}/propiedad/${propiedadId}`);
+  }
+
+  getArriendosPorUsuario(usuarioId: number): Observable<arriendo[]> {
+    return this.http.get<arriendo[]>(`${this.apiUrl}/usuario/${usuarioId}`);
   }
 }
