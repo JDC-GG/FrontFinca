@@ -22,7 +22,7 @@ COPY ./k8s/my-httpd.conf /usr/local/apache2/conf/httpd.conf
 COPY ./k8s/.htaccess /usr/local/apache2/htdocs/
 
 # Copiar los archivos compilados desde la etapa anterior
-COPY --from=builder /app/dist/primer-proyecto /usr/local/apache2/htdocs/
+COPY --from=builder /app/dist/primer-proyecto/browser/ /usr/local/apache2/htdocs/
 
 
 EXPOSE 80
