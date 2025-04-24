@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { CommonModule, JsonPipe } from '@angular/common'; // Importa estos módulos
+import { CommonModule, JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  standalone: true, // Asegúrate que está como standalone
-  imports: [CommonModule, HttpClientModule, JsonPipe], // Añade estos imports
+  standalone: true,
+  imports: [CommonModule, HttpClientModule, JsonPipe],
   template: `
     <h1>Estado de conexión:</h1>
     <p>{{ connectionStatus }}</p>
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.http.get('http://localhost:8081/api/propiedades').subscribe({
+    this.http.get('http://localhost:8081/api/propiedad').subscribe({
       next: (response) => {
         this.connectionStatus = "Conexión exitosa con el backend";
         this.apiResponse = response;
