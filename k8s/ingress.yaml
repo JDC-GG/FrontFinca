@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontfinca-ingress
+  namespace: frontfinca-dev
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /  # Para soportar rutas de Angular
+spec:
+  ingressClassName: public
+  rules:
+  - host:
+    http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: frontfinca
+            port:
+              number: 80

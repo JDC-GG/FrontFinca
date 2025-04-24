@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontfinca
+  namespace: frontfinca-dev
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontfinca
+  template:
+    metadata:
+      labels:
+        app: frontfinca
+    spec:
+      containers:
+      - name: frontfinca
+        image: localhost:5000/frontfinca:latest
+        ports:
+        - containerPort: 80
+        envFrom:
+        - configMapRef:
+            name: frontfinca-config
