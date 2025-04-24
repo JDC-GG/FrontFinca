@@ -1,0 +1,21 @@
+# Carpetas pesadas o irrelevantes
+node_modules
+dist
+.git
+
+# Archivos comunes de Windows/macOS
+Thumbs.db
+ehthumbs.db
+.DS_Store
+*.lnk
+
+# Archivos ocultos o temporales
+*.log
+*.tmp
+*.swp
+
+# Archivos sensibles
+.env
+
+# Si usas Visual Studio Code
+.vscode

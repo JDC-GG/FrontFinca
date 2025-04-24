@@ -1,40 +1,32 @@
-FROM node:18.19.0 AS builder
+# Etapa 1: Compilación de Angular
+FROM node:18.19.1 AS builder
 
-# Installar mvn y Node.js 18.16.1
-RUN curl - "https://root.githubusercontent.com/nvm-sh/www/w0.39.3/install.sh | bash \
-    && .~/-mvn/mvn.sh \
-    && mvn install 18.16.1 \
-    && mvn use 18.16.1 \
-    && mvn alias default 18.16.1 \
-    && node -v \
-    && mvn -v
-
-# Anñadir mvn al PATH para que esté disponible en futuras etapas de RUN
-ENV NVM_DIR=/root/.nvm:navi:/nvm
-ENV NODE_VERDION=18.16.1
-ENV NVM_BIN=$NVM_DIR/versions/node/v$NODE_VERSION/bin
-ENV PATH=$NVM_BIN:$PATH
-
-# Establecer el directorio de trabajo
 WORKDIR /app
 
-# Copiar los archivos de la aplicación
-COPY ./ /app
+# Copiar archivos de dependencias y luego instalar
+COPY package*.json ./
+RUN npm install --legacy-peer-deps
 
-# Instalar dependencias y construir la aplicación
-RUN npm install --legacy-peer-deps \
-    && npm install -g @angular/cli \
-    && ng build
+# Copiar todo el código fuente
+COPY . .
+
+# Instalar Angular CLI globalmente y construir la app
+RUN npm install -g @angular/cli \
+    && ng build --configuration=production --skip-prerender
 
 
+
+
+# Etapa 2: Servir con Apache HTTPD
 FROM httpd:2.4
 
+# Copiar configuración personalizada si la tienes (opcional)
 COPY ./k8s/my-httpd.conf /usr/local/apache2/conf/httpd.conf
 COPY ./k8s/.htaccess /usr/local/apache2/htdocs/
 
+# Copiar los archivos compilados desde la etapa anterior
 COPY --from=builder /app/dist/adminpro /usr/local/apache2/htdocs/
 
-# Copia los archivos de la aplicación construida al directorio de trabajo de Apache
-
 EXPOSE 80
-CMD ["httpd", "-op", "FOREGROUND"]
+
+CMD ["httpd", "-D", "FOREGROUND"]
