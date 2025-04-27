@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 export class Usuario {
   constructor(
     public id: number,
@@ -7,3 +8,11 @@ export class Usuario {
     public rol: 'propietario' | 'cliente'
   ) {}
 }
+=======
+export interface Usuario {
+    id?: number;
+    nombre: string;
+    email: string;
+    rol: string;
+  }
+>>>>>>> Mafe
