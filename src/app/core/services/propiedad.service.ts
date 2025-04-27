@@ -17,10 +17,6 @@ export class PropiedadService {
     return this.http.get<Propiedad[]>(this.apiUrl);
   }
 
-<<<<<<< HEAD
-  crearPropiedad(propiedad: Propiedad) {
-    return this.api.post<Propiedad>('propiedades', propiedad);
-=======
   getPropiedad(id: number): Observable<Propiedad> {
     return this.http.get<Propiedad>(`${this.apiUrl}/${id}`);
   }
@@ -35,6 +31,5 @@ export class PropiedadService {
 
   deletePropiedad(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
->>>>>>> Mafe
   }
 }
