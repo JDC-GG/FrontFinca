@@ -9,26 +9,31 @@ import { Propiedad } from '../../models/propiedad.model';
   providedIn: 'root'
 })
 export class PropiedadService {
-  private apiUrl = `${environment.apiUrl}/propiedades`;
+  private apiUrl = `${environment.apiUrl}/propiedad`;
 
   constructor(private http: HttpClient) { }
 
+  //Obtener todas las propiedades
   getPropiedades(): Observable<Propiedad[]> {
     return this.http.get<Propiedad[]>(this.apiUrl);
   }
 
+  //Obtener propiedad por ID
   getPropiedad(id: number): Observable<Propiedad> {
     return this.http.get<Propiedad>(`${this.apiUrl}/${id}`);
   }
 
+  //Crear propiedad
   createPropiedad(propiedad: Propiedad): Observable<Propiedad> {
     return this.http.post<Propiedad>(this.apiUrl, propiedad);
   }
 
+  //Actualizar propiedad
   updatePropiedad(id: number, propiedad: Propiedad): Observable<Propiedad> {
     return this.http.put<Propiedad>(`${this.apiUrl}/${id}`, propiedad);
   }
 
+  //Eliminar propiedad
   deletePropiedad(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
