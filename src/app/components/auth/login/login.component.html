@@ -1,1 +1,20 @@
-<p>login works!</p>
+<div class="login-container">
+    <div class="login-header">
+      <h1>Let´s hunt for your rental dream residence</h1>
+      <p>Explore our range of beautiful properties with the addition of separate accommodation suitable for you.</p>
+    </div>
+  
+    <div class="login-content">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        <h2>Login</h2>
+        <input type="email" placeholder="Email" formControlName="email" />
+        <input type="password" placeholder="Password" formControlName="password" />
+        <button type="submit" class="btn-submit">Login</button>
+      </form>
+  
+      <div class="login-image">
+        <img src="assets/images/Casa.png" alt="House Image" />
+      </div>
+    </div>
+  </div>
+  

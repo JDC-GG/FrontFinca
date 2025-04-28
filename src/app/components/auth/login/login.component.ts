@@ -1,22 +1,27 @@
-// login.component.ts
 import { Component } from '@angular/core';
-import { AuthService } from '../../../core/services/auth.service';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  email: string = '';
-  password: string = '';
+  loginForm: FormGroup;
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private fb: FormBuilder) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
+  }
 
   onSubmit() {
-    this.auth.login(this.email, this.password).subscribe({
-      next: () => this.router.navigate(['/propiedades']),
-      error: (err) => alert('Error: ' + err.message)
-    });
+    if (this.loginForm.valid) {
+      console.log('Login enviado:', this.loginForm.value);
+    }
   }
 }

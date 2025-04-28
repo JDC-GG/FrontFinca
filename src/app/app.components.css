@@ -1,0 +1,109 @@
+/* app.component.css */
+.container {
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  background-color: #f8f9fa;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #5d5fef;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.nav-buttons .btn {
+  margin-left: 20px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login {
+  background-color: transparent;
+  border: 1px solid #5d5fef;
+  color: #5d5fef;
+}
+
+.signup {
+  background-color: #5d5fef;
+  color: #fff;
+}
+
+.main-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 80px 60px;
+  background: linear-gradient(to right, #f0f2ff, #ffffff);
+}
+
+.text-content {
+  flex: 1;
+}
+
+.text-content h1 {
+  font-size: 48px;
+  color: #2c2e4a;
+  margin-bottom: 20px;
+}
+
+.text-content p {
+  font-size: 18px;
+  margin-bottom: 30px;
+  max-width: 500px;
+}
+
+.cta-button {
+  background-color: #5d5fef;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.stats {
+  display: flex;
+  margin-top: 50px;
+  gap: 40px;
+}
+
+.stats h2 {
+  color: #5d5fef;
+  font-size: 24px;
+}
+
+.stats p {
+  font-size: 14px;
+}
+
+.image-content {
+  flex: 1;
+  text-align: center;
+}
+
+.image-content img {
+  max-width: 90%;
+  border-radius: 15px;
+}

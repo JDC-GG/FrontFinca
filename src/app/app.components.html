@@ -1,0 +1,14 @@
+<nav class="navbar">
+  <div class="logo">FincaRen</div>
+  <ul class="nav-links">
+    <li><a routerLink="/arriendos" routerLinkActive="active">Rent</a></li>
+    <li><a routerLink="/propiedades" routerLinkActive="active">Manage Property</a></li>
+  </ul>
+  <div class="nav-buttons">
+    <a class="btn login" routerLink="/login">Login</a>
+    <a class="btn signup" routerLink="/registro">Sign up</a>
+  </div>
+</nav>
+
+<!-- Aquí Angular inyecta las páginas como HomeComponent, Propiedades, etc. -->
+<router-outlet></router-outlet>

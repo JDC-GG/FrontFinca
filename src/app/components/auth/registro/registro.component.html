@@ -1,1 +1,26 @@
-<p>registro works!</p>
+<div class="signup-container">
+    <div class="signup-header">
+      <h1>Earn more from your property, do less</h1>
+      <h2>Sign up</h2>
+    </div>
+  
+    <div class="signup-content">
+      <form [formGroup]="registroForm" (ngSubmit)="onSubmit()" class="signup-form">
+        <div class="form-row">
+          <input type="text" placeholder="Nombre(s)" formControlName="nombre" />
+          <input type="text" placeholder="Apellido(s)" formControlName="apellido" />
+        </div>
+        <input type="text" placeholder="Teléfono" formControlName="telefono" />
+        <input type="email" placeholder="Email" formControlName="email" />
+        <input type="password" placeholder="Password" formControlName="password" />
+  
+        <button type="submit" class="btn-submit">Crear Cuenta</button>
+      </form>
+  
+      <div class="signup-image">
+        <img src="assets/images/Casa.png" alt="House Image" />
+
+      </div>
+    </div>
+  </div>
+  
