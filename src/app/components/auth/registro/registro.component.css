@@ -1,5 +1,12 @@
+.signup-header h1 {
+  font-family: 'Lato', sans-serif;
+}
+.signup-header p, .signup-header h2, .signup-form h2, .btn-submit {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
 .signup-container {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -36,7 +43,9 @@
 
 .signup-form .form-row {
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 1.5rem; 
+  /*margin-bottom: 1.5rem; */
 }
 
 .signup-form input {
@@ -46,6 +55,14 @@
   font-size: 1rem;
   width: 100%;
   background-color: white;
+}
+
+.signup-form .form-group {
+  flex: 1; 
+  min-width: 240px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
 }
 
 .signup-form input:focus {
@@ -71,7 +88,7 @@
 }
 
 .signup-image img {
-  max-width: 400px;
+  max-width: 500px;
   width: 100%;
   height: auto;
 }

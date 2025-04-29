@@ -1,5 +1,12 @@
+.login-header h1 {
+  font-family: 'Lato', sans-serif;
+}
+.login-header p, .login-header h2, .login-form h2, .btn-submit {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
 .login-container {
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 2rem;
     text-align: center;
@@ -9,6 +16,13 @@
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
     font-weight: bold;
+  }
+
+  .login-header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #2B0936;
   }
   
   .login-header p {
@@ -27,9 +41,9 @@
   
   .login-form {
     background-color: #f7f7f7;
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 12px;
-    flex: 1;
+    flex: 0 0 320px;
     min-width: 300px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   }
@@ -72,7 +86,7 @@
   }
   
   .login-image img {
-    max-width: 400px;
+    max-width: 500px;
     width: 100%;
     height: auto;
   }
