@@ -1,6 +1,8 @@
+import { Injectable } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { UsuarioService } from '../../../core/services/usuario.service';
 
 @Component({
   selector: 'app-registro',
@@ -12,7 +14,10 @@ import { CommonModule } from '@angular/common';
 export class RegistroComponent {
   registroForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private usuarioService: UsuarioService
+  ) {
     this.registroForm = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
@@ -24,8 +29,28 @@ export class RegistroComponent {
 
   onSubmit() {
     if (this.registroForm.valid) {
-      console.log('Formulario enviado:', this.registroForm.value);
-      // Aquí puedes luego enviar la data al servidor
+      const nuevoUsuario = {
+        nombre: this.registroForm.value.nombre,
+        apellido: this.registroForm.value.apellido,
+        telefono: this.registroForm.value.telefono,
+        correo: this.registroForm.value.email,        
+        contrasena: this.registroForm.value.password  
+      };
+
+      console.log('Formulario enviado:', nuevoUsuario);
+
+      this.usuarioService.createUsuario(nuevoUsuario).subscribe({
+        next: () => {
+          alert('¡Usuario registrado con éxito!');
+          this.registroForm.reset();
+        },
+        error: (err) => {
+          alert('Error al registrar: ' + (err?.error?.message || 'Error desconocido'));
+          console.error(err);
+        }
+      });
+    } else {
+      alert('Por favor completa todos los campos correctamente.');
     }
   }
 }

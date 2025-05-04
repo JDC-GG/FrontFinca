@@ -9,7 +9,7 @@ import { Usuario } from '../../models/usuario.model';
   providedIn: 'root'
 })
 export class UsuarioService {
-  private apiUrl = `${environment.apiUrl}/usuarios`;
+  private apiUrl = `${environment.apiUrl}/usuario`;
 
   constructor(private http: HttpClient) { }
 
