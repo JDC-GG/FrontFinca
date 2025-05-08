@@ -1,1 +1,19 @@
-<p>lista-arriendos works!</p>
+<div class="contenedor">
+    <div class="encabezado">
+      <h2>Tus Propiedades</h2>
+      <button class="btn-crear">Crear nueva propiedad</button>
+    </div>
+  
+    <div class="grid">
+      <div class="tarjeta" *ngFor="let propiedad of propiedades">
+        <img [src]="propiedad.imagen" alt="imagen propiedad">
+        <div class="info">
+          <h3>\${{ propiedad.precio }}<span>/noche</span></h3>
+          <p class="titulo">{{ propiedad.titulo }}</p>
+          <p class="direccion">{{ propiedad.direccion }}</p>
+          <button class="editar">Editar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
