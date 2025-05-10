@@ -1,20 +1,45 @@
 <div class="login-container">
-    <div class="login-header">
-      <h1>Let´s hunt for your rental dream residence</h1>
-      <p>Explore our range of beautiful properties with the addition of separate accommodation suitable for you.</p>
-      <h2>Login</h2>
-    </div>
-  
-    <div class="login-content">
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
-        <input type="email" placeholder="Email" formControlName="email" />
-        <input type="password" placeholder="Password" formControlName="password" />
-        <button type="submit" class="btn-submit">Login</button>
-      </form>
-  
-      <div class="login-image">
-        <img src="assets/images/Casa.png" alt="House Image" />
+  <div class="login-header">
+    <h1>Let’s hunt for your rental dream residence</h1>
+    <p>Explore our range of beautiful properties with the addition of separate accommodation suitable for you.</p>
+    <h2>Login</h2>
+  </div>
+
+  <div class="login-content">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+
+      <!-- CAMPO CORREO -->
+      <input
+        type="email"
+        placeholder="Email"
+        formControlName="correo"
+        [class.invalid]="loginForm.get('correo')?.invalid && loginForm.get('correo')?.touched" />
+      <div class="error" *ngIf="loginForm.get('correo')?.invalid && loginForm.get('correo')?.touched">
+        <small *ngIf="loginForm.get('correo')?.errors?.['required']">El correo es obligatorio.</small>
+        <small *ngIf="loginForm.get('correo')?.errors?.['email']">Correo no válido.</small>
       </div>
+
+      <!-- CAMPO CONTRASEÑA -->
+      <input
+        type="password"
+        placeholder="Password"
+        formControlName="contrasena"
+        [class.invalid]="loginForm.get('contrasena')?.invalid && loginForm.get('contrasena')?.touched" />
+      <div class="error" *ngIf="loginForm.get('contrasena')?.invalid && loginForm.get('contrasena')?.touched">
+        <small *ngIf="loginForm.get('contrasena')?.errors?.['required']">La contraseña es obligatoria.</small>
+        <small *ngIf="loginForm.get('contrasena')?.errors?.['minlength']">Mínimo 8 caracteres.</small>
+      </div>
+
+      <!-- ERROR DE AUTENTICACIÓN -->
+      <div class="error" *ngIf="errorMsg">
+        {{ errorMsg }}
+      </div>
+
+      <button type="submit" class="btn-submit" [disabled]="loginForm.invalid">Login</button>
+    </form>
+
+    <div class="login-image">
+      <img src="assets/images/Casa.png" alt="House Image" />
     </div>
   </div>
-  
+</div>

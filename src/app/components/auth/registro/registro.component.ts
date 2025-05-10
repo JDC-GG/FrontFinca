@@ -22,8 +22,8 @@ export class RegistroComponent {
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
       telefono: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]]
+      correo: ['', [Validators.required, Validators.email]],
+      contrasena: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
 
@@ -33,8 +33,8 @@ export class RegistroComponent {
         nombre: this.registroForm.value.nombre,
         apellido: this.registroForm.value.apellido,
         telefono: this.registroForm.value.telefono,
-        correo: this.registroForm.value.email,        
-        contrasena: this.registroForm.value.password  
+        correo: this.registroForm.value.correo,        
+        contrasena: this.registroForm.value.contrasena  
       };
 
       console.log('Formulario enviado:', nuevoUsuario);
