@@ -23,7 +23,8 @@ export class RegistroComponent {
       apellido: ['', Validators.required],
       telefono: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]]
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      rol: ['', Validators.required] // 👈 Nuevo campo de selección de rol
     });
   }
 
@@ -33,8 +34,9 @@ export class RegistroComponent {
         nombre: this.registroForm.value.nombre,
         apellido: this.registroForm.value.apellido,
         telefono: this.registroForm.value.telefono,
-        correo: this.registroForm.value.email,        
-        contrasena: this.registroForm.value.password  
+        correo: this.registroForm.value.email,
+        contrasena: this.registroForm.value.password,
+        rol: this.registroForm.value.rol // 👈 Se envía el rol
       };
 
       console.log('Formulario enviado:', nuevoUsuario);

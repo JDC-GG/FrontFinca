@@ -27,6 +27,14 @@
           <input type="password" placeholder="Password" formControlName="password" />
         </div>
       
+        <div class="form-group">
+          <select formControlName="rol">
+            <option value="" disabled selected>Selecciona tu rol</option>
+            <option value="ARRENDADOR">Arrendador</option>
+            <option value="ARRENDATARIO">Arrendatario</option>
+          </select>
+        </div>
+        
         <button type="submit" class="btn-submit">Create Account</button>
       </form>            
   

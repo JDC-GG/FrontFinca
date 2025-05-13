@@ -1,4 +1,3 @@
-// src/app/core/services/usuario.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -32,4 +31,10 @@ export class UsuarioService {
   deleteUsuario(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  //  Nuevo método para login
+  loginUsuario(credentials: { correo: string; contrasena: string }): Observable<any> {
+    const loginUrl = `${environment.apiUrl}/usuario/login`;
+    return this.http.post<any>(loginUrl, credentials);
+  }  
 }
