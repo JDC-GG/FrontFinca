@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -19,10 +18,7 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-
     private usuarioService: UsuarioService,
-
-   
     private router: Router
   ) {
     this.loginForm = this.fb.group({
@@ -31,7 +27,7 @@ export class LoginComponent {
     });
 
     // Limpiar mensaje de error al editar campos
-     this.loginForm.valueChanges.subscribe(() => {
+    this.loginForm.valueChanges.subscribe(() => {
       this.errorMsg = null;
     });
   }
@@ -39,8 +35,8 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       const loginData = {
-        correo: this.loginForm.value.email,        
-        contrasena: this.loginForm.value.password  
+        correo: this.loginForm.value.correo,          // ✅ corregido
+        contrasena: this.loginForm.value.contrasena   // ✅ corregido
       };
 
       console.log('Enviando al backend:', loginData); 
@@ -54,7 +50,7 @@ export class LoginComponent {
           if (usuario.rol === 'ARRENDADOR') {
             this.router.navigate(['/dashboard-arrendador']);
           } else if (usuario.rol === 'ARRENDATARIO') {
-            this.router.navigate(['/home-arrendatario']);
+            this.router.navigate(['/arriendos']);
           } else {
             alert('Rol no reconocido.');
           }
@@ -66,7 +62,6 @@ export class LoginComponent {
       });
     } else {
       alert('Por favor completa todos los campos correctamente.');
-
     }
   }
 }
