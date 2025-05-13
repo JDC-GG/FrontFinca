@@ -1,7 +1,7 @@
 .login-header h1 {
   font-family: 'Lato', sans-serif;
 }
-.login-header p, .login-header h2, .login-form h2, .btn-submit {
+.login-header p, .login-header h2, .login-form h2, .btn-submit, .error {
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
@@ -89,5 +89,12 @@
     max-width: 500px;
     width: 100%;
     height: auto;
+  }
+  
+  .error {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    text-align: center;
   }
   

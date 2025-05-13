@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -13,15 +15,24 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  errorMsg: string | null = null;
 
   constructor(
     private fb: FormBuilder,
+
     private usuarioService: UsuarioService,
+
+   
     private router: Router
   ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      correo: ['', [Validators.required, Validators.email]],
+      contrasena: ['', [Validators.required, Validators.minLength(8)]]
+    });
+
+    // Limpiar mensaje de error al editar campos
+     this.loginForm.valueChanges.subscribe(() => {
+      this.errorMsg = null;
     });
   }
 
@@ -55,6 +66,7 @@ export class LoginComponent {
       });
     } else {
       alert('Por favor completa todos los campos correctamente.');
+
     }
   }
 }
