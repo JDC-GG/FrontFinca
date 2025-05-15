@@ -1,1 +1,18 @@
-<p>detalle-propiedad works!</p>
+<div class="formulario-detalle">
+  <h2>Update a Property</h2>
+
+  <input type="text" [(ngModel)]="propiedad.nombre" placeholder="Name" />
+  <input type="text" [(ngModel)]="propiedad.ubicacion" placeholder="Department / Municipality" />
+  <input type="text" [(ngModel)]="propiedad.tipoEntrada" placeholder="Type of entrance" />
+  <input type="number" [(ngModel)]="propiedad.habitaciones" placeholder="Number of rooms" />
+  <input type="number" [(ngModel)]="propiedad.banos" placeholder="Number of bathrooms" />
+  <input type="text" [(ngModel)]="propiedad.mascotas" placeholder="Pets allow" />
+  <input type="text" [(ngModel)]="propiedad.piscina" placeholder="Have Pool" />
+  <input type="text" [(ngModel)]="propiedad.parrilla" placeholder="Have Grill" />
+  <input type="number" [(ngModel)]="propiedad.precio" placeholder="Price per night" />
+  <textarea [(ngModel)]="propiedad.descripcion" placeholder="Descripción"></textarea>
+
+  <button class="btn-cancelar">Deactivate</button>
+  <button class="btn-guardar" (click)="guardarCambios()">Update</button>
+</div>
+

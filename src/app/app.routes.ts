@@ -19,6 +19,7 @@ export const routes: Routes = [
   { path: 'arriendos', component: ListaArriendosComponent },
   { path: 'arriendos/solicitar', component: SolicitudArriendoComponent },
   { path: 'usuarios', component: ListaUsuariosComponent },
+  { path: 'propiedad/:id', component: DetallePropiedadComponent },
 
   // Rutas de autenticación usan su propio layout
   {

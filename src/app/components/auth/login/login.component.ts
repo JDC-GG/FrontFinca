@@ -45,6 +45,8 @@ export class LoginComponent {
         next: (usuario) => {
           console.log('Usuario recibido del backend:', usuario); 
           alert('¡Login exitoso!');
+// Guardar usuario en localStorage
+localStorage.setItem('usuario', JSON.stringify(usuario));
 
           // Redirigir según rol
           if (usuario.rol === 'ARRENDADOR') {
