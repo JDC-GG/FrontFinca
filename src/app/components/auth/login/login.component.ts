@@ -35,33 +35,40 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       const loginData = {
-        correo: this.loginForm.value.correo,          // ✅ corregido
-        contrasena: this.loginForm.value.contrasena   // ✅ corregido
+        correo: this.loginForm.value.correo,          
+        contrasena: this.loginForm.value.contrasena   
       };
 
       console.log('Enviando al backend:', loginData); 
 
       this.usuarioService.loginUsuario(loginData).subscribe({
-        next: (usuario) => {
-          console.log('Usuario recibido del backend:', usuario); 
-          alert('¡Login exitoso!');
-
-          // Redirigir según rol
-          if (usuario.rol === 'ARRENDADOR') {
-            this.router.navigate(['/dashboard-arrendador']);
-          } else if (usuario.rol === 'ARRENDATARIO') {
-            this.router.navigate(['/arriendos']);
+        next: (response) => {
+          console.log('Respuesta completa del backend:', response); 
+        
+          const usuario = response.usuario;
+          const token = response.token;
+        
+          if (usuario && usuario.rol) {
+            // Guardar el token en localStorage
+            localStorage.setItem('token', token);
+            localStorage.setItem('usuario', JSON.stringify(usuario));
+        
+            alert('¡Login exitoso!');
+        
+            // Redirigir según rol
+            if (usuario.rol === 'ARRENDADOR') {
+              this.router.navigate(['/dashboard-arrendador']);
+            } else if (usuario.rol === 'ARRENDATARIO') {
+              this.router.navigate(['/arriendos']);
+            } else {
+              alert('Rol no reconocido.');
+            }
           } else {
-            alert('Rol no reconocido.');
+            alert('Respuesta inválida del servidor.');
           }
-        },
-        error: (err) => {
-          alert('Credenciales incorrectas o usuario no encontrado.');
-          console.error('Error del backend:', err);
         }
+         
       });
-    } else {
-      alert('Por favor completa todos los campos correctamente.');
-    }
+    } 
   }
 }
