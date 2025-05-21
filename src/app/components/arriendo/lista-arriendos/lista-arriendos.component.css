@@ -60,18 +60,18 @@
     font-size: 0.9rem;
   }
   
-  .titulo {
+  .nombre {
     font-weight: bold;
     margin-top: 0.5rem;
   }
   
-  .direccion {
+  .ubicacion {
     font-size: 0.9rem;
     color: #636e72;
     margin-bottom: 1rem;
   }
   
-  .editar {
+  .ver {
     background: transparent;
     border: 1px solid #0984e3;
     color: #0984e3;

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { PropiedadService } from '../../../core/services/propiedad.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';  // Importa el AuthService
 
 @Component({
   selector: 'app-formulario-propiedad',
@@ -17,7 +18,8 @@ export class FormularioPropiedadComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private propiedadService: PropiedadService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService  // Inyecta AuthService
   ) {}
 
   ngOnInit(): void {
@@ -29,7 +31,16 @@ export class FormularioPropiedadComponent implements OnInit {
   }
 
   guardarPropiedad(): void {
-    const propiedad = this.propiedadForm.value;
+    const usuario = this.authService.getCurrentUser();
+    if (!usuario) {
+      alert('Debes iniciar sesión para crear una propiedad');
+      return;
+    }
+
+    const propiedad = {
+      ...this.propiedadForm.value,
+      id_usuario: usuario.id  // Añades el id del usuario autenticado
+    };
 
     this.propiedadService.createPropiedad(propiedad).subscribe({
       next: () => {

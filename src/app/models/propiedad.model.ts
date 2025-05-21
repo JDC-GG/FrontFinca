@@ -3,4 +3,5 @@ export interface Propiedad {
   nombre: string;
   ubicacion: string;
   precio: number;
+  id_usuario: number;
 }

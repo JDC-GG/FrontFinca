@@ -1,0 +1,82 @@
+
+.contenedor {
+    padding: 2rem;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f5f6fa;
+  }
+  
+  .encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .btn-crear {
+    background-color: #6c5ce7;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .tarjeta {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+  
+  .tarjeta:hover {
+    transform: translateY(-5px);
+  }
+  
+  .tarjeta img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+  
+  .info {
+    padding: 1rem;
+  }
+  
+  .info h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #2d3436;
+  }
+  
+  .info h3 span {
+    color: #636e72;
+    font-size: 0.9rem;
+  }
+  
+  .nombre {
+    font-weight: bold;
+    margin-top: 0.5rem;
+  }
+  
+  .ubicacion {
+    font-size: 0.9rem;
+    color: #636e72;
+    margin-bottom: 1rem;
+  }
+  
+  .editar {
+    background: transparent;
+    border: 1px solid #0984e3;
+    color: #0984e3;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  

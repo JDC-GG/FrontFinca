@@ -12,38 +12,38 @@ export class ListaArriendosComponent {
   propiedades = [
     {
       precio: 2015,
-      titulo: 'Palm Harbor',
-      direccion: '2699 Green Valley, Highland Lake, FL',
+      nombre: 'Palm Harbor',
+      ubicacion: '2699 Green Valley, Highland Lake, FL',
       imagen: 'assets/images/imagen1.jpg'
     },
     {
       precio: 2700,
-      titulo: 'Beverly Springfield',
-      direccion: '2821 Lake Sevilla, Palm Harbor, TX',
+      nombre: 'Beverly Springfield',
+      ubicacion: '2821 Lake Sevilla, Palm Harbor, TX',
       imagen: 'assets/images/imagen2.jpg'
     },
     {
       precio: 4550,
-      titulo: 'Faulkner Ave',
-      direccion: '909 Woodland St, Michigan, IN',
+      nombre: 'Faulkner Ave',
+      ubicacion: '909 Woodland St, Michigan, IN',
       imagen: 'assets/images/imagen3.jpg'
     },
     {
       precio: 2400,
-      titulo: 'St. Crystal',
-      direccion: '2104 Foley St, Chicago, IL',
+      nombre: 'St. Crystal',
+      ubicacion: '2104 Foley St, Chicago, IL',
       imagen: 'assets/images/imagen4.webp'
     },
     {
       precio: 1500,
-      titulo: 'Cove Red',
-      direccion: '7231 Riverland St, San Diego, CA',
+      nombre: 'Cove Red',
+      ubicacion: '7231 Riverland St, San Diego, CA',
       imagen: 'assets/images/imagen5.jpeg'
     },
     {
       precio: 1600,
-      titulo: 'Tarpon Bay',
-      direccion: '1253 Grand Lake Rd, Tampa, FL',
+      nombre: 'Tarpon Bay',
+      ubicacion: '1253 Grand Lake Rd, Tampa, FL',
       imagen: 'assets/images/imagen6.jpg'
     }
   ];

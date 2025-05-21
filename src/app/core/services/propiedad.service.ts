@@ -9,7 +9,7 @@ import { Propiedad } from '../../models/propiedad.model';
   providedIn: 'root'
 })
 export class PropiedadService {
-  private apiUrl = `${environment.apiUrl}/propiedades`;
+  private apiUrl = `${environment.apiUrl}/propiedad`;
 
   constructor(private http: HttpClient) { }
 

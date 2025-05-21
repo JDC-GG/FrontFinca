@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { PropiedadService } from '../../../core/services/propiedad.service';
 import { Propiedad } from '../../../models/propiedad.model';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-lista-propiedades',
-  imports: [],
+  imports: [CommonModule, RouterModule],
   templateUrl: './lista-propiedades.component.html',
   styleUrl: './lista-propiedades.component.css'
 })
