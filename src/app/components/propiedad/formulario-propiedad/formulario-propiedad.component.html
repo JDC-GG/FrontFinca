@@ -1,1 +1,47 @@
-<p>formulario-propiedad works!</p>
+<main>
+    <section class="form-container">
+      <div class="form-title">
+        <h1>Create a New Property</h1>
+        <p>Fill out the form to create a new property.</p>
+      </div>
+  
+      <form [formGroup]="propiedadForm" (ngSubmit)="guardarPropiedad()" class="property-form">
+  
+        <!-- Nombre -->
+        <div class="form-row">
+          <div class="form-group">
+            <input type="text" placeholder="Property Name" formControlName="nombre" />
+            <div *ngIf="propiedadForm.get('nombre')?.invalid && propiedadForm.get('nombre')?.touched" class="error">
+              <small>Property name is required.</small>
+            </div>
+          </div>
+  
+          <!-- Ubicación -->
+          <div class="form-group">
+            <input type="text" placeholder="Location" formControlName="ubicacion" />
+            <div *ngIf="propiedadForm.get('ubicacion')?.invalid && propiedadForm.get('ubicacion')?.touched" class="error">
+              <small>Location is required.</small>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Precio -->
+        <div class="form-row">
+          <div class="form-group">
+            <input type="number" placeholder="Price per Night" formControlName="precio" />
+            <div *ngIf="propiedadForm.get('precio')?.invalid && propiedadForm.get('precio')?.touched" class="error">
+              <small>Price must be greater than 0.</small>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Botón de acción -->
+        <div class="form-row">
+          <button type="submit" [disabled]="propiedadForm.invalid" class="submit-btn">
+            Create Property
+          </button>
+        </div>
+  
+      </form>
+    </section>
+  </main>

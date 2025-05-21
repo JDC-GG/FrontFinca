@@ -57,7 +57,7 @@ export class LoginComponent {
         
             // Redirigir según rol
             if (usuario.rol === 'ARRENDADOR') {
-              this.router.navigate(['/dashboard-arrendador']);
+              this.router.navigate(['/propiedades']);
             } else if (usuario.rol === 'ARRENDATARIO') {
               this.router.navigate(['/arriendos']);
             } else {
