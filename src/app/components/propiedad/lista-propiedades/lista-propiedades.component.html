@@ -12,9 +12,25 @@
           <h3>\${{ propiedad.precio }}<span>/noche</span></h3>
           <p class="titulo">{{ propiedad.nombre }}</p>
           <p class="direccion">{{ propiedad.ubicacion }}</p>
-          <button class="editar">Editar</button>
+          
+          <!-- Formulario de edición (oculto por defecto) -->
+          <div *ngIf="propiedadEditando === propiedad.id" class="formulario-edicion">
+            <input [(ngModel)]="propiedad.nombre" placeholder="Nombre">
+            <input [(ngModel)]="propiedad.ubicacion" placeholder="Ubicación">
+            <input type="number" [(ngModel)]="propiedad.precio" placeholder="Precio">
+            
+            <div class="acciones-edicion">
+              <button (click)="guardarEdicion(propiedad)">Guardar</button>
+              <button (click)="cancelarEdicion()">Cancelar</button>
+            </div>
+          </div>
+          
+          <!-- Botones normales (se ocultan cuando se está editando) -->
+          <div class="acciones" *ngIf="propiedadEditando !== propiedad.id">
+            <button class="editar" (click)="iniciarEdicion(propiedad.id)">Editar</button>
+            <button class="eliminar" (click)="eliminarPropiedad(propiedad.id)">Eliminar</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  

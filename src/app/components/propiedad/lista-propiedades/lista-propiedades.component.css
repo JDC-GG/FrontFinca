@@ -80,3 +80,11 @@
     cursor: pointer;
   }
   
+  .eliminar {
+    background: transparent;
+    border: 1px solid #0984e3;
+    color: #0984e3;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }

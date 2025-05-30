@@ -1,0 +1,59 @@
+* [33m7172e2a[m[33m ([m[1;31morigin/Johan[m[33m, [m[1;32mJohan[m[33m)[m Merge branch 'Mafe' into Johan
+* [33m305b423[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mMafe[m[33m, [m[1;31morigin/Mafe[m[33m)[m Subo frontend corregido
+* [33m72cfb0d[m prueba crear propiedad
+* [33m8f233e0[m prueba crear propiedad
+* [33m38f2d22[m cambio en login.component
+[31m|[m * [33m5799af8[m[33m ([m[1;31morigin/juan[m[33m)[m mas cambios
+[31m|[m * [33m693829f[m cambio en arriendo
+[31m|[m * [33m5336765[m css de detalle
+[31m|[m * [33mba68939[m edicion de propiedad(prueba)
+[31m|[m[31m/[m  
+* [33m3594be6[m Login funcional con validación por rol y redirección
+*   [33me3f5d43[m Resueltos conflictos entre rama johan y master
+[33m|[m[34m\[m  
+[33m|[m * [33m2f67660[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m correccion registro
+[33m|[m * [33m880db07[m Correccion login y registro
+[33m|[m * [33mcf84cfc[m rent lista
+[33m|[m *   [33m05b6391[m Merge remote-tracking branch 'origin/johan' into juan
+[33m|[m [35m|[m[36m\[m  
+[33m|[m * [36m|[m [33m0743cf5[m boton de crear propiedad
+* [36m|[m [36m|[m [33m83f9135[m Login funcional con redirección por rol
+[36m|[m [36m|[m[36m/[m  
+[36m|[m[36m/[m[36m|[m   
+* [36m|[m [33m2e659c1[m[33m ([m[1;31morigin/johan[m[33m)[m Cambios de registro funcionando
+[36m|[m[36m/[m  
+* [33ma1a241e[m[33m ([m[1;31morigin/CarlosV[m[33m)[m mejora diseño
+* [33m181390b[m flow between login, signup and confirm done
+* [33m4749621[m Resuelve conflictos de merge en servicios y modelos
+* [33m2f61dce[m Mvn para k8s
+*   [33m793ebc0[m Merge branch 'Mafe'
+[1;31m|[m[1;32m\[m  
+* [1;32m|[m [33md48253d[m Update usuario.model.ts
+* [1;32m|[m [33m2e5c4f2[m Update usuario.model.ts
+* [1;32m|[m [33mb0db245[m Update usuario.model.ts
+* [1;32m|[m [33m567288f[m Update usuario.service.ts
+* [1;32m|[m [33mf4d430f[m Update propiedad.service.ts
+* [1;32m|[m [33m6a9ad13[m Update usuario.model.ts
+* [1;32m|[m [33m2bc4bdb[m Update usuario.model.ts
+* [1;32m|[m   [33mf70c88d[m Merge pull request #1 from JDC-GG/Mafe
+[1;33m|[m[1;34m\[m [1;32m\[m  
+[1;33m|[m [1;34m|[m [1;32m|[m * [33m3c2850d[m[33m ([m[1;31morigin/Ale[m[33m)[m actualizacion front
+[1;33m|[m [1;34m|[m [1;32m|[m[1;32m/[m  
+[1;33m|[m [1;34m|[m *   [33m417d79d[m Merge branch 'Mafe' of https://github.com/JDC-GG/FrontFinca into Mafe
+[1;33m|[m [1;34m|[m [1;36m|[m[31m\[m  
+[1;33m|[m [1;34m|[m [1;36m|[m *   [33m27abc24[m Conexion a Angular
+[1;33m|[m [1;34m|[m [1;36m|[m [32m|[m[33m\[m  
+[1;33m|[m [1;34m|[m [1;36m|[m * [33m|[m [33m0fcb497[m Conexion a Angular
+[1;33m|[m [1;34m|[m * [33m|[m [33m|[m [33me3eb507[m docker resuelto
+[1;33m|[m [1;34m|[m * [33m|[m [33m|[m [33m260d7ed[m docker resuelto
+[1;33m|[m [1;34m|[m [33m|[m [33m|[m[33m/[m  
+[1;33m|[m [1;34m|[m [33m|[m[33m/[m[33m|[m   
+[1;33m|[m [1;34m|[m * [33m|[m [33m8ccc9f7[m dockersito
+[1;33m|[m [1;34m|[m [33m|[m[33m/[m  
+[1;33m|[m [1;34m|[m * [33m2218dde[m k8s y sus archivos
+[1;33m|[m [1;34m|[m * [33m1ac199c[m dockersito
+[1;33m|[m [1;34m|[m * [33m5148afd[m actualizacion
+[1;33m|[m [1;34m|[m[1;34m/[m  
+[1;33m|[m * [33md7a0b82[m Estructura general
+[1;33m|[m[1;33m/[m  
+* [33ma25142c[m primer comit
