@@ -1,1 +1,33 @@
-<p>formulario-usuario works!</p>
+<div class="calificacion-container">
+  <h2>Calificar Inquilino</h2>
+
+  <form [formGroup]="formCalificacion" (ngSubmit)="enviarCalificacion()">
+    <label for="estrellas">Estrellas:</label>
+    <div class="estrellas">
+      <i
+        *ngFor="let estrella of [1,2,3,4,5]; let i = index"
+        class="fa-star"
+        [ngClass]="{
+          'fas': estrella <= estrellasSeleccionadas,
+          'far': estrella > estrellasSeleccionadas
+        }"
+        (click)="seleccionarEstrellas(estrella)"
+      ></i>
+    </div>
+
+    <label for="comentario">Comentario:</label>
+    <textarea
+      id="comentario"
+      formControlName="comentario"
+      placeholder="Comentario opcional..."
+    ></textarea>
+
+    <button type="submit" [disabled]="formCalificacion.invalid">
+      Enviar Calificación
+    </button>
+  </form>
+
+  <div *ngIf="enviado" class="mensaje-confirmacion">
+    ¡Calificación enviada con éxito!
+  </div>
+</div>

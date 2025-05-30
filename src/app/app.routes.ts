@@ -9,6 +9,7 @@ import { ListaUsuariosComponent } from './components/usuario/lista-usuarios/list
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegistroComponent } from './components/auth/registro/registro.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { FormularioUsuarioComponent } from './components/usuario/formulario-usuario/formulario-usuario.component';
 
 export const routes: Routes = [
   // Rutas normales (Home, propiedades, etc.) van sin AppComponent aquí
@@ -19,6 +20,7 @@ export const routes: Routes = [
   { path: 'arriendos', component: ListaArriendosComponent },
   { path: 'arriendos/solicitar', component: SolicitudArriendoComponent },
   { path: 'usuarios', component: ListaUsuariosComponent },
+  { path: 'usuarios/calificar', component: FormularioUsuarioComponent },
 
   // Rutas de autenticación usan su propio layout
   {
