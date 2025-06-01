@@ -1,26 +1,35 @@
 /* app.component.css */
-.navbar, .nav-links a, .nav-buttons a, .logo {
+
+/* Tipografía y colores generales */
+.navbar,
+.nav-links a,
+.nav-buttons a,
+.nav-buttons button,
+.logo,
+.bienvenido {
   font-family: 'Plus Jakarta Sans', sans-serif;
-}
-.container {
-  font-family:'Plus Jakarta Sans', sans-serif;
   color: #333;
 }
 
+.container {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: #333;
+}
+
+/* Contenedor principal de la barra de navegación */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 60px;
   background-color: #f8f9fa;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-/*.logo {
-  font-size: 24px;
-  font-weight: bold;
-  color: #5d5fef;
-}*/
-
+/* Logotipo con ícono y texto */
 .logo {
   font-size: 24px;
   font-weight: bold;
@@ -31,38 +40,92 @@
   text-decoration: none;
 }
 
-
+/* Estilos para la lista de enlaces */
 .nav-links {
   list-style: none;
   display: flex;
   gap: 30px;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-links a {
   text-decoration: none;
   color: #333;
   font-weight: 500;
+  transition: color 0.2s;
 }
 
+.nav-links a.active,
+.nav-links a:hover {
+  color: #5d5fef;
+}
+
+/* Contenedor de los botones a la derecha */
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Botones comunes (Login, Sign up, Logout) */
 .nav-buttons .btn {
-  margin-left: 20px;
   padding: 10px 20px;
   border-radius: 5px;
   text-decoration: none;
   font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, color 0.2s;
 }
 
-.login {
+/* Botón Login */
+.nav-buttons .btn.login {
   background-color: transparent;
-  border: 1px solid #5d5fef;
+  border-color: #5d5fef;
   color: #5d5fef;
 }
 
-.signup {
-  background-color: #5d5fef;
-  color: #fff;
+.nav-buttons .btn.login:hover {
+  background-color: #f0f6fd;
+  color: #4178c0;
 }
 
+/* Botón Sign up */
+.nav-buttons .btn.signup {
+  background-color: #5d5fef;
+  color: #ffffff;
+  border-color: #5d5fef;
+}
+
+.nav-buttons .btn.signup:hover {
+  background-color: #4178c0;
+  border-color: #4178c0;
+}
+
+/* Estilo de bienvenida del usuario */
+.bienvenido {
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Botón Logout */
+.nav-buttons .btn.logout {
+  background-color: #e74c3c;
+  color: #ffffff;
+  border-color: #e74c3c;
+}
+
+.nav-buttons .btn.logout:hover {
+  background-color: #c0392b;
+  border-color: #c0392b;
+}
+
+/* Estilos para el contenido principal (opcional) */
 .main-content {
   display: flex;
   align-items: center;
@@ -120,4 +183,29 @@
 .image-content img {
   max-width: 90%;
   border-radius: 15px;
+}
+
+/* Responsive: adapta padding en pantallas pequeñas */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: 15px 30px;
+    gap: 10px;
+  }
+
+  .nav-links {
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-buttons {
+    gap: 12px;
+  }
+
+  .main-content {
+    flex-direction: column;
+    padding: 60px 30px;
+    text-align: center;
+  }
 }

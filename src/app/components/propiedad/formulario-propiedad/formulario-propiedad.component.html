@@ -1,47 +1,179 @@
-<main>
-    <section class="form-container">
-      <div class="form-title">
-        <h1>Create a New Property</h1>
-        <p>Fill out the form to create a new property.</p>
-      </div>
-  
-      <form [formGroup]="propiedadForm" (ngSubmit)="guardarPropiedad()" class="property-form">
-  
+<main class="main-container">
+  <section class="form-card">
+    <div class="form-header">
+      <h1>Crear Propiedad</h1>
+      <p>Completa todos los campos para registrar una nueva propiedad.</p>
+    </div>
+
+    <form [formGroup]="propiedadForm" (ngSubmit)="guardarPropiedad()" class="property-form">
+
+      <!-- Fila 1: Nombre, Departamento, Municipio -->
+      <div class="form-row">
         <!-- Nombre -->
-        <div class="form-row">
-          <div class="form-group">
-            <input type="text" placeholder="Property Name" formControlName="nombre" />
-            <div *ngIf="propiedadForm.get('nombre')?.invalid && propiedadForm.get('nombre')?.touched" class="error">
-              <small>Property name is required.</small>
-            </div>
-          </div>
-  
-          <!-- Ubicación -->
-          <div class="form-group">
-            <input type="text" placeholder="Location" formControlName="ubicacion" />
-            <div *ngIf="propiedadForm.get('ubicacion')?.invalid && propiedadForm.get('ubicacion')?.touched" class="error">
-              <small>Location is required.</small>
-            </div>
+        <div class="form-group">
+          <label for="nombre">Nombre *</label>
+          <input
+            id="nombre"
+            type="text"
+            placeholder="Nombre de la propiedad"
+            formControlName="nombre"
+          />
+          <div *ngIf="campoInvalido('nombre')" class="error">
+            <small>El nombre es obligatorio.</small>
           </div>
         </div>
-  
-        <!-- Precio -->
-        <div class="form-row">
-          <div class="form-group">
-            <input type="number" placeholder="Price per Night" formControlName="precio" />
-            <div *ngIf="propiedadForm.get('precio')?.invalid && propiedadForm.get('precio')?.touched" class="error">
-              <small>Price must be greater than 0.</small>
-            </div>
+
+        <!-- Departamento -->
+        <div class="form-group">
+          <label for="departamento">Departamento *</label>
+          <input
+            id="departamento"
+            type="text"
+            placeholder="Departamento (ej. Cundinamarca)"
+            formControlName="departamento"
+          />
+          <div *ngIf="campoInvalido('departamento')" class="error">
+            <small>El departamento es obligatorio.</small>
           </div>
         </div>
-  
-        <!-- Botón de acción -->
-        <div class="form-row">
-          <button type="submit" [disabled]="propiedadForm.invalid" class="submit-btn">
-            Create Property
-          </button>
+
+        <!-- Municipio -->
+        <div class="form-group">
+          <label for="municipio">Municipio *</label>
+          <input
+            id="municipio"
+            type="text"
+            placeholder="Municipio (ej. La Calera)"
+            formControlName="municipio"
+          />
+          <div *ngIf="campoInvalido('municipio')" class="error">
+            <small>El municipio es obligatorio.</small>
+          </div>
         </div>
-  
-      </form>
-    </section>
-  </main>
+      </div>
+
+      <!-- Fila 2: Descripción -->
+      <div class="form-row">
+        <div class="form-group full-width">
+          <label for="descripcion">Descripción *</label>
+          <textarea
+            id="descripcion"
+            rows="4"
+            placeholder="Breve descripción de la propiedad (mínimo 10 caracteres)"
+            formControlName="descripcion"
+          ></textarea>
+          <div *ngIf="campoInvalido('descripcion')" class="error">
+            <small>La descripción es obligatoria y debe tener al menos 10 caracteres.</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fila 3: Habitaciones, Baños, Valor Noche -->
+      <div class="form-row">
+        <!-- Habitaciones -->
+        <div class="form-group">
+          <label for="habitaciones">Habitaciones *</label>
+          <input
+            id="habitaciones"
+            type="number"
+            min="1"
+            placeholder="Cantidad de habitaciones"
+            formControlName="habitaciones"
+          />
+          <div *ngIf="campoInvalido('habitaciones')" class="error">
+            <small>Debe tener al menos 1 habitación.</small>
+          </div>
+        </div>
+
+        <!-- Baños -->
+        <div class="form-group">
+          <label for="banos">Baños *</label>
+          <input
+            id="banos"
+            type="number"
+            min="1"
+            placeholder="Cantidad de baños"
+            formControlName="banos"
+          />
+          <div *ngIf="campoInvalido('banos')" class="error">
+            <small>Debe tener al menos 1 baño.</small>
+          </div>
+        </div>
+
+        <!-- Valor por Noche -->
+        <div class="form-group">
+          <label for="valorNoche">Valor/Noche (COP) *</label>
+          <input
+            id="valorNoche"
+            type="number"
+            min="0.1"
+            step="0.01"
+            placeholder="Precio por noche"
+            formControlName="valorNoche"
+          />
+          <div *ngIf="campoInvalido('valorNoche')" class="error">
+            <small>Ingrese un valor mayor que 0.</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fila 4: Tipo de Ingreso, Status -->
+      <div class="form-row">
+        <!-- Tipo de Ingreso -->
+        <div class="form-group">
+          <label for="tipoIngreso">Tipo de Ingreso *</label>
+          <select id="tipoIngreso" formControlName="tipoIngreso">
+            <option value="" disabled>Selecciona una opción</option>
+            <option *ngFor="let tipo of tiposIngreso" [value]="tipo.value">
+              {{ tipo.label }}
+            </option>
+          </select>
+          <div *ngIf="campoInvalido('tipoIngreso')" class="error">
+            <small>Seleccione el tipo de ingreso.</small>
+          </div>
+        </div>
+
+        <!-- Status -->
+        <div class="form-group">
+          <label for="status">Estado *</label>
+          <select id="status" formControlName="status">
+            <option value="" disabled>Selecciona estado</option>
+            <option *ngFor="let st of statuses" [value]="st.value">
+              {{ st.label }}
+            </option>
+          </select>
+          <div *ngIf="campoInvalido('status')" class="error">
+            <small>Seleccione el estado.</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fila 5: Mascotas, Piscina, Asador -->
+      <div class="form-row">
+        <div class="form-checkbox">
+          <input type="checkbox" id="mascotas" formControlName="mascotas" />
+          <label for="mascotas">Permite Mascotas</label>
+        </div>
+        <div class="form-checkbox">
+          <input type="checkbox" id="piscina" formControlName="piscina" />
+          <label for="piscina">Tiene Piscina</label>
+        </div>
+        <div class="form-checkbox">
+          <input type="checkbox" id="asador" formControlName="asador" />
+          <label for="asador">Tiene Asador</label>
+        </div>
+      </div>
+
+      <!-- Botón Guardar -->
+      <div class="form-row form-actions">
+        <button
+          type="submit"
+          [disabled]="propiedadForm.invalid"
+          class="submit-btn"
+        >
+          Crear Propiedad
+        </button>
+      </div>
+    </form>
+  </section>
+</main>

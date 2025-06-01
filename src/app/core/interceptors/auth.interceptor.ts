@@ -14,7 +14,7 @@ export class AuthInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     // Rutas que NO deben llevar el token (login, registro, etc.)
-    const excludedUrls = ['/usuario/login'];
+    const excludedUrls = ['/usuario/login', '/usuario'];
 
     // Si la URL del request contiene alguna de las excluidas, no agregues el token
     if (excludedUrls.some(url => req.url.includes(url))) {

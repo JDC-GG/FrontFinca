@@ -17,7 +17,7 @@ export class AuthService {
   private currentUserSubject = new BehaviorSubject<Usuario | null>(null);
   currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor(private api: ApiService) {
+  /*constructor(private api: ApiService) {
     const token = localStorage.getItem('token');
     if (token) {
       const decoded: any = this.decodeToken(token);
@@ -30,13 +30,27 @@ export class AuthService {
         this.currentUserSubject.next(usuario as Usuario);
       }
     }
-  }
+  }*/
+
+  constructor(private api: ApiService) {
+    const storedUser = localStorage.getItem('currentUser');
+    if (storedUser) {
+      try {
+        const usuario: Usuario = JSON.parse(storedUser);
+        this.currentUserSubject.next(usuario);
+      } catch (err) {
+        console.error('Error al parsear currentUser de localStorage', err);
+        localStorage.removeItem('currentUser');
+      }
+    }
+  } 
 
   login(email: string, password: string): Observable<Usuario> {
     return this.api.post<LoginResponse>('usuario/login', { correo: email, contrasena: password })
       .pipe(
         tap(res => {
           localStorage.setItem('token', res.token);
+          localStorage.setItem('currentUser', JSON.stringify(res.usuario));
           this.currentUserSubject.next(res.usuario);
         }),
         map(res => res.usuario)
@@ -51,8 +65,9 @@ export class AuthService {
     return !!localStorage.getItem('token');
   }
 
-  logout() {
+  logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }
 

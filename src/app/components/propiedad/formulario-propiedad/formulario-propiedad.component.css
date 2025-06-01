@@ -1,95 +1,144 @@
-* {
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-  }
-  
-  body {
-    margin: 0;
-    background-color: #f8f8ff;
-  }
-  
-  main {
-    padding: 2rem;
-  }
-  
-  .form-container {
-    background-color: #ffffff;
-    border-radius: 12px;
-    padding: 2rem;
-    max-width: 1200px;
-    margin: auto;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .form-title h1 {
-    margin: 0;
-    font-size: 2rem;
-    color: #333;
-  }
-  
-  .form-title p {
-    color: #666;
-  }
-  
-  .form-content {
-    display: flex;
-    margin-top: 2rem;
-    gap: 2rem;
-  }
-  
-  .image-upload {
-    display: grid;
-    grid-template-columns: repeat(3, 100px);
-    gap: 1rem;
-  }
-  
-  .upload-box {
-    width: 100px;
-    height: 100px;
-    border: 2px dashed #ccc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
-    color: #999;
-    cursor: pointer;
-    border-radius: 8px;
-  }
-  
-  .property-form {
-    flex: 1;
-    display: flex;
+/* Contenedor principal */
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Tarjeta del formulario */
+.form-card {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  max-width: 800px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Encabezado */
+.form-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.form-header h1 {
+  font-size: 1.8rem;
+  margin: 0;
+  color: #333333;
+}
+
+.form-header p {
+  font-size: 0.9rem;
+  color: #666666;
+}
+
+/* Filas del formulario */
+.property-form .form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+/* Campos principales */
+.property-form .form-group {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Cuando queremos que el campo ocupe todo el ancho */
+.property-form .full-width {
+  flex: 1 1 100%;
+}
+
+/* Etiquetas */
+.property-form label {
+  font-size: 0.85rem;
+  margin-bottom: 0.3rem;
+  color: #444444;
+}
+
+/* Inputs, selects y textarea */
+.property-form input[type="text"],
+.property-form input[type="number"],
+.property-form select,
+.property-form textarea {
+  padding: 0.6rem 0.8rem;
+  font-size: 0.95rem;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  background-color: #fafafa;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.property-form input:focus,
+.property-form select:focus,
+.property-form textarea:focus {
+  outline: none;
+  border-color: #4a90e2;
+  background-color: #ffffff;
+}
+
+/* Textarea */
+.property-form textarea {
+  resize: vertical;
+  font-family: inherit;
+}
+
+/* Campos checkbox */
+.property-form .form-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 140px;
+}
+
+.property-form .form-checkbox input[type="checkbox"] {
+  transform: scale(1.1);
+}
+
+/* Mensajes de error */
+.property-form .error {
+  margin-top: 0.2rem;
+}
+
+.property-form .error small {
+  color: #d9534f;
+  font-size: 0.8rem;
+}
+
+/* Botón de envío */
+.property-form .submit-btn {
+  background-color: #4a90e2;
+  color: #ffffff;
+  padding: 0.7rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.property-form .submit-btn:disabled {
+  background-color: #a5c0e8;
+  cursor: not-allowed;
+}
+
+.property-form .submit-btn:hover:not(:disabled) {
+  background-color: #4178c0;
+}
+
+/* Ajustes responsive */
+@media (max-width: 600px) {
+  .property-form .form-row {
     flex-direction: column;
-    gap: 1rem;
   }
-  
-  .form-row {
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .form-row input,
-  .form-row textarea {
-    flex: 1;
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1rem;
-  }
-  
-  .full-width textarea {
-    width: 100%;
-    resize: vertical;
-    height: 100px;
-  }
-  
-  .submit-btn {
-    margin-top: 1rem;
-    padding: 0.75rem;
-    background-color: #5a5aff;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    cursor: pointer;
-  }
+}

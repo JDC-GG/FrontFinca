@@ -1,36 +1,43 @@
+<!-- src/app/components/propiedad/lista-propiedades/lista-propiedades.component.html -->
+
 <div class="contenedor">
-    <div class="encabezado">
-      <h2>Propiedades disponibles</h2>
-      <button class="btn-crear" [routerLink]="['/propiedades/nueva']">Crear propiedad</button>
-    </div>
-  
-    <div class="grid">
-      <div class="tarjeta" *ngFor="let propiedad of propiedades">
-        <!-- <img [src]="propiedad.imagen" alt="imagen propiedad"> -->
-  
-        <div class="info">
-          <h3>\${{ propiedad.precio }}<span>/noche</span></h3>
-          <p class="titulo">{{ propiedad.nombre }}</p>
-          <p class="direccion">{{ propiedad.ubicacion }}</p>
-          
-          <!-- Formulario de edición (oculto por defecto) -->
-          <div *ngIf="propiedadEditando === propiedad.id" class="formulario-edicion">
-            <input [(ngModel)]="propiedad.nombre" placeholder="Nombre">
-            <input [(ngModel)]="propiedad.ubicacion" placeholder="Ubicación">
-            <input type="number" [(ngModel)]="propiedad.precio" placeholder="Precio">
-            
-            <div class="acciones-edicion">
-              <button (click)="guardarEdicion(propiedad)">Guardar</button>
-              <button (click)="cancelarEdicion()">Cancelar</button>
-            </div>
-          </div>
-          
-          <!-- Botones normales (se ocultan cuando se está editando) -->
-          <div class="acciones" *ngIf="propiedadEditando !== propiedad.id">
-            <button class="editar" (click)="iniciarEdicion(propiedad.id)">Editar</button>
-            <button class="eliminar" (click)="eliminarPropiedad(propiedad.id)">Eliminar</button>
-          </div>
+  <div class="encabezado">
+    <h2>Propiedades disponibles</h2>
+    <button class="btn-crear" [routerLink]="['/propiedades/nueva']">
+      Crear propiedad
+    </button>
+  </div>
+
+  <div class="grid">
+    <div 
+      class="tarjeta" 
+      *ngFor="let propiedad of propiedades"
+      [ngClass]="{ 'desactivada': propiedad.status === 'INACTIVA' }"
+    >
+      <!-- Si quieres, aquí podrías mostrar una imagen: <img [src]="propiedad.imagen" ...> -->
+
+      <div class="info">
+        <h3>\${{ propiedad.valorNoche }}<span>/noche</span></h3>
+        <p class="titulo">
+          {{ propiedad.nombre }}
+          <!-- Mostramos una etiqueta “Desactivada” si su status es INACTIVA -->
+          <span *ngIf="propiedad.status === 'INACTIVA'" class="badge-desactivada">
+            (Desactivada)
+          </span>
+        </p>
+        <p class="direccion">{{ propiedad.departamento }}, {{ propiedad.municipio }}</p>
+
+        <div class="acciones">
+          <!-- Botón “Ver” → navega a /propiedades/{id} -->
+          <button class="btn-ver" (click)="verDetalle(propiedad.id)">
+            Ver
+          </button>
+          <!-- Botón “Editar” → navega a /propiedades/{id}/editar -->
+          <button class="btn-editar" (click)="editar(propiedad.id)">
+            Editar
+          </button>
         </div>
       </div>
     </div>
   </div>
+</div>

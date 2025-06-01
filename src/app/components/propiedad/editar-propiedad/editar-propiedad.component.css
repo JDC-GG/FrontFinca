@@ -1,0 +1,86 @@
+/* src/app/components/propiedad/editar-propiedad/editar-propiedad.component.css */
+
+.editar-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 24px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+  
+  .editar-container h2 {
+    margin-bottom: 20px;
+    font-size: 26px;
+    color: #333;
+  }
+  
+  .datos-propiedad p {
+    margin: 6px 0;
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .datos-propiedad strong {
+    color: #222;
+  }
+  
+  .botones-accion {
+    margin-top: 24px;
+    display: flex;
+    gap: 12px;
+  }
+  
+  /* Botón Desactivar */
+  .btn-desactivar {
+    background-color: #e0a800;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .btn-desactivar:hover {
+    background-color: #d39e00;
+  }
+  
+  /* Botón Reactivar */
+  .btn-reactivar {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .btn-reactivar:hover {
+    background-color: #218838;
+  }
+  
+  /* Botón Eliminar */
+  .btn-eliminar {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .btn-eliminar:hover {
+    background-color: #c82333;
+  }
+  
+  /* Botón Volver */
+  .btn-volver {
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .btn-volver:hover {
+    background-color: #5a6268;
+  }
+  

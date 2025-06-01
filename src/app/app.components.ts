@@ -1,50 +1,34 @@
-/*import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { CommonModule, JsonPipe } from '@angular/common';
+// src/app/app.component.ts
+
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule, Router } from '@angular/router';
+
+import { AuthService } from './core/services/auth.service';
+import { Usuario } from './models/usuario.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, JsonPipe],
-  template: `
-    <h1>Estado de conexión:</h1>
-    <p>{{ connectionStatus }}</p>
-    <pre>{{ apiResponse | json }}</pre>
-  `,
+  imports: [CommonModule, RouterModule],
+  templateUrl: './app.components.html',
+  styleUrls: ['./app.components.css']
 })
 export class AppComponent implements OnInit {
-  connectionStatus = "Probando conexión...";
-  apiResponse: any;
+  usuario$: Observable<Usuario | null>;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.usuario$ = this.authService.currentUser$;
+  }
 
-  ngOnInit() {
-    this.http.get('http://localhost:8081/api/propiedad').subscribe({
-      next: (response) => {
-        this.connectionStatus = "Conexión exitosa con el backend";
-        this.apiResponse = response;
-      },
-      error: (error) => {
-        this.connectionStatus = "Error de conexión con el backend";
-        this.apiResponse = error;
-      }
-    });
+  ngOnInit(): void {}
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/']);
   }
 }
-*/
-
-
-// src/app/app.component.ts
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router'; 
-import { CommonModule } from '@angular/common'; 
-
-@Component({
-  selector: 'app-root',
-  standalone: true, 
-  imports: [CommonModule, RouterModule], 
-  templateUrl: './app.components.html',
-  styleUrl: './app.components.css'
-})
-export class AppComponent {}
-

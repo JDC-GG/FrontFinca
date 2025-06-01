@@ -1,15 +1,28 @@
+<!-- src/app/app.components.html -->
+
 <nav class="navbar">
   <a class="logo" routerLink="/">
-    <i class="fas fa-home"></i> FincaRen</a>
+    <i class="fas fa-home"></i> FincaRen
+  </a>
+
   <ul class="nav-links">
     <li><a routerLink="/arriendos" routerLinkActive="active">Rent</a></li>
     <li><a routerLink="/propiedades" routerLinkActive="active">Manage Property</a></li>
   </ul>
+
   <div class="nav-buttons">
-    <a class="btn login" routerLink="/login">Login</a>
-    <a class="btn signup" routerLink="/registro">Sign up</a>
+    <!-- Si no hay usuario autenticado: mostramos Login / Sign up -->
+    <ng-container *ngIf="(usuario$ | async) as usuario; else mostrarLoginSignUp">
+      <!-- Aquí 'usuario' NO es null -->
+      <span class="bienvenido">Bienvenido, {{ usuario.nombre }}</span>
+      <button class="btn logout" (click)="logout()">Logout</button>
+    </ng-container>
+
+    <ng-template #mostrarLoginSignUp>
+      <a class="btn login" routerLink="/login">Login</a>
+      <a class="btn signup" routerLink="/registro">Sign up</a>
+    </ng-template>
   </div>
 </nav>
 
-<!-- Aquí Angular inyecta las páginas como HomeComponent, Propiedades, etc. -->
 <router-outlet></router-outlet>

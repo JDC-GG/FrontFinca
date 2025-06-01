@@ -1,9 +1,12 @@
+// src/app/components/login/login.component.ts
+
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
-import { UsuarioService } from '../../../core/services/usuario.service';
 import { Router } from '@angular/router';
+
+import { AuthService } from '../../../core/services/auth.service';
+import { Usuario } from '../../../models/usuario.model';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +21,7 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    private usuarioService: UsuarioService,
+    private authService: AuthService, // ← inyectamos AuthService en vez de UsuarioService
     private router: Router
   ) {
     this.loginForm = this.fb.group({
@@ -26,49 +29,41 @@ export class LoginComponent {
       contrasena: ['', [Validators.required, Validators.minLength(8)]]
     });
 
-    // Limpiar mensaje de error al editar campos
+    // Limpiar mensaje de error al editar cualquiera de los dos campos
     this.loginForm.valueChanges.subscribe(() => {
       this.errorMsg = null;
     });
   }
 
-  onSubmit() {
-    if (this.loginForm.valid) {
-      const loginData = {
-        correo: this.loginForm.value.correo,          
-        contrasena: this.loginForm.value.contrasena   
-      };
+  onSubmit(): void {
+    if (this.loginForm.invalid) {
+      return;
+    }
 
-      console.log('Enviando al backend:', loginData); 
+    const correo = this.loginForm.value.correo;
+    const contrasena = this.loginForm.value.contrasena;
 
-      this.usuarioService.loginUsuario(loginData).subscribe({
-        next: (response) => {
-          console.log('Respuesta completa del backend:', response); 
-        
-          const usuario = response.usuario;
-          const token = response.token;
-        
-          if (usuario && usuario.rol) {
-            // Guardar el token en localStorage
-            localStorage.setItem('token', token);
-            localStorage.setItem('usuario', JSON.stringify(usuario));
-        
-            alert('¡Login exitoso!');
-        
-            // Redirigir según rol
-            if (usuario.rol === 'ARRENDADOR') {
-              this.router.navigate(['/propiedades']);
-            } else if (usuario.rol === 'ARRENDATARIO') {
-              this.router.navigate(['/arriendos']);
-            } else {
-              alert('Rol no reconocido.');
-            }
-          } else {
-            alert('Respuesta inválida del servidor.');
-          }
+    // Llamamos a AuthService.login, que internamente hace POST /login
+    this.authService.login(correo, contrasena).subscribe({
+      next: (usuario: Usuario) => {
+        // Si llegamos aquí, el backend devolvió { token, usuario } correctamente,
+        // AuthService ya guardó token y emitió currentUserSubject.next(usuario)
+
+        // Redirigir según rol
+        if (usuario.rol === 'ARRENDADOR') {
+          this.router.navigate(['/propiedades']);
+        } else if (usuario.rol === 'ARRENDATARIO') {
+          this.router.navigate(['/arriendos']);
+        } else {
+          // Si por alguna razón no coincide el rol
+          this.errorMsg = 'Rol no reconocido.';
         }
-         
-      });
-    } 
+      },
+      error: (err) => {
+        console.error('Error en login:', err);
+        // Si el backend devolvió 401, o hubo otro fallo, mostramos mensaje
+        this.errorMsg = 'Credenciales inválidas. Intenta de nuevo.';
+      }
+    });
   }
 }
