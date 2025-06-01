@@ -1,17 +1,42 @@
+<!-- src/app/components/arriendo/lista-arriendos/lista-arriendos.component.html -->
 <div class="contenedor">
-    <div class="encabezado">
-      <h2>Propiedades disponibles</h2>
-    </div>
-  
-    <div class="grid">
-      <div class="tarjeta" *ngFor="let propiedad of propiedades">
-        <img [src]="propiedad.imagen" alt="imagen propiedad">
-        <div class="info">
-          <h3>\${{ propiedad.precio }}<span>/noche</span></h3>
-          <p class="titulo">{{ propiedad.nombre }}</p>
-          <p class="direccion">{{ propiedad.ubicacion }}</p>
-          <button class="editar">Ver</button>
+  <div class="encabezado">
+    <h2>Propiedades disponibles para arrendar</h2>
+  </div>
+
+  <!-- Mensaje de carga -->
+  <div *ngIf="isLoading" class="loading">
+    <p>Cargando propiedades...</p>
+  </div>
+
+  <!-- Mensaje de error -->
+  <div *ngIf="errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+    <button (click)="cargarPropiedades()">Reintentar</button>
+  </div>
+
+  <!-- Lista de propiedades -->
+  <div class="grid" *ngIf="!isLoading && !errorMessage">
+    <div class="tarjeta" *ngFor="let propiedad of propiedades">
+      <img [src]="getImagen(propiedad)" [alt]="propiedad.nombre">
+      <div class="info">
+        <h3>\${{ propiedad.valorNoche | number:'1.0-0' }}<span>/noche</span></h3>
+        <p class="titulo">{{ propiedad.nombre }}</p>
+        <p class="direccion">{{ propiedad.departamento }}, {{ propiedad.municipio }}</p>
+        
+        <div class="caracteristicas">
+          <span>{{ propiedad.habitaciones }} hab.</span>
+          <span>{{ propiedad.banos }} baños</span>
+          <span *ngIf="propiedad.piscina">Piscina</span>
+          <span *ngIf="propiedad.mascotas">Mascotas</span>
         </div>
+        
+        <button class="editar" [routerLink]="['/propiedades', propiedad.id]">Ver detalles</button>
       </div>
     </div>
+
+    <div *ngIf="propiedades.length === 0" class="no-resultados">
+      <p>No hay propiedades disponibles en este momento.</p>
+    </div>
   </div>
+</div>

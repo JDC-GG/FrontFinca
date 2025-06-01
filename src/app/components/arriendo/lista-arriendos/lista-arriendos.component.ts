@@ -1,51 +1,55 @@
-import { Component } from '@angular/core';
+// src/app/components/arriendo/lista-arriendos/lista-arriendos.component.ts
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PropiedadService } from '../../../core/services/propiedad.service';
+import { Propiedad } from '../../../models/propiedad.model';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-lista-arriendos',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './lista-arriendos.component.html',
   styleUrls: ['./lista-arriendos.component.css']
 })
-export class ListaArriendosComponent {
-  propiedades = [
-    {
-      precio: 2015,
-      nombre: 'Palm Harbor',
-      ubicacion: '2699 Green Valley, Highland Lake, FL',
-      imagen: 'assets/images/imagen1.jpg'
-    },
-    {
-      precio: 2700,
-      nombre: 'Beverly Springfield',
-      ubicacion: '2821 Lake Sevilla, Palm Harbor, TX',
-      imagen: 'assets/images/imagen2.jpg'
-    },
-    {
-      precio: 4550,
-      nombre: 'Faulkner Ave',
-      ubicacion: '909 Woodland St, Michigan, IN',
-      imagen: 'assets/images/imagen3.jpg'
-    },
-    {
-      precio: 2400,
-      nombre: 'St. Crystal',
-      ubicacion: '2104 Foley St, Chicago, IL',
-      imagen: 'assets/images/imagen4.webp'
-    },
-    {
-      precio: 1500,
-      nombre: 'Cove Red',
-      ubicacion: '7231 Riverland St, San Diego, CA',
-      imagen: 'assets/images/imagen5.jpeg'
-    },
-    {
-      precio: 1600,
-      nombre: 'Tarpon Bay',
-      ubicacion: '1253 Grand Lake Rd, Tampa, FL',
-      imagen: 'assets/images/imagen6.jpg'
-    }
-  ];
-  
+export class ListaArriendosComponent implements OnInit {
+  propiedades: Propiedad[] = [];
+  isLoading: boolean = true;
+  errorMessage: string | null = null;
+
+  constructor(private propiedadService: PropiedadService) {}
+
+  ngOnInit(): void {
+    this.cargarPropiedades();
+  }
+
+  cargarPropiedades(): void {
+    this.isLoading = true;
+    this.errorMessage = null;
+    
+    this.propiedadService.getPropiedades().subscribe({
+      next: (data) => {
+        this.propiedades = data;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Error al cargar propiedades', err);
+        this.errorMessage = 'No se pudieron cargar las propiedades. Intente nuevamente más tarde.';
+        this.isLoading = false;
+      }
+    });
+  }
+
+  getImagen(propiedad: Propiedad): string {
+    // Por ahora usaremos imágenes de placeholder por temas de base de datos
+    const imagenes = [
+      'assets/images/imagen1.jpg',
+      'assets/images/imagen2.jpg',
+      'assets/images/imagen3.jpg',
+      'assets/images/imagen4.webp',
+      'assets/images/imagen5.jpeg',
+      'assets/images/imagen6.jpg'
+    ];
+    return imagenes[propiedad.id % imagenes.length] || 'assets/images/default.jpg';
+  }
 }

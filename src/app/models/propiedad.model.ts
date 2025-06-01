@@ -13,5 +13,6 @@ export interface Propiedad {
   valorNoche: number;
   tipoIngreso: string;    
   status: string;  
-  idUsuario: number;           
+  idUsuario: number; 
+  imagen?: string;          
 }
