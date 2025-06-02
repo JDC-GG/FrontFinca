@@ -1,0 +1,83 @@
+/* src/app/components/arriendo/solicitud-arriendo/solicitud-arriendo.component.css */
+
+.container-solicitud {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 24px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .1);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+  
+  .container-solicitud h2 {
+    margin-bottom: 16px;
+    color: #333;
+  }
+  
+  .form-group {
+    margin-bottom: 16px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: #444;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .form-group input:invalid.ng-touched {
+    border-color: #dc3545;
+  }
+  
+  .error small {
+    color: #dc3545;
+    font-size: 13px;
+  }
+  
+  .error-general {
+    color: #dc3545;
+    margin-bottom: 16px;
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  .btn-enviar {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 8px;
+  }
+  
+  .btn-enviar:disabled {
+    background-color: #94d3a2;
+    cursor: not-allowed;
+  }
+  
+  .btn-enviar:hover:enabled {
+    background-color: #218838;
+  }
+  
+  .btn-volver {
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .btn-volver:hover {
+    background-color: #5a6268;
+  }
+  

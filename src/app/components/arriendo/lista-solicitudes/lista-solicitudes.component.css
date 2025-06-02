@@ -1,0 +1,120 @@
+/* src/app/components/arriendo/lista-solicitudes/lista-solicitudes.component.css */
+
+.contenedor-solicitudes {
+    max-width: 960px;
+    margin: 30px auto;
+    padding: 0 16px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #333;
+  }
+  
+  h2 {
+    font-size: 24px;
+    margin-bottom: 12px;
+    color: #5d5fef;
+    font-weight: 600;
+  }
+  
+  /* Mensajes (Cargando / Sin resultados) */
+  .mensaje-centrado {
+    text-align: center;
+    margin: 20px 0;
+    color: #777;
+  }
+  
+  .error-general {
+    text-align: center;
+    margin: 20px 0;
+    color: #d9534f;
+    font-weight: 500;
+  }
+  
+  /* Separador visual */
+  .separador {
+    height: 2px;
+    background-color: #eee;
+    margin: 30px 0;
+  }
+  
+  /* Grid para las tarjetas (2 columnas en desktop, 1 en mobile) */
+  .grid-solicitudes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  /* Tarjeta individual */
+  .tarjeta-solicitud {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: 16px 20px;
+    position: relative;
+  }
+  
+  /* Header de la tarjeta */
+  .header-solicitud {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  
+  .etiqueta-id {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .fecha-solicitud {
+    font-size: 12px;
+    color: #555;
+  }
+  
+  /* Línea divisoria */
+  .tarjeta-solicitud hr {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 8px 0 12px;
+  }
+  
+  /* Lista de detalles */
+  .detalles-solicitud {
+    list-style: disc inside;
+    padding-left: 18px;
+    margin-bottom: 14px;
+  }
+  
+  .detalles-solicitud li {
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #444;
+  }
+  
+  /* Botón “Ir a Pago” */
+  .botones-solicitud {
+    text-align: right;
+  }
+  
+  .btn-pago {
+    background-color: #3cba54;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .btn-pago:hover {
+    opacity: 0.9;
+  }
+  
+  /* Responsive: en pantallas pequeñas, 1 columna */
+  @media (max-width: 480px) {
+    .grid-solicitudes {
+      grid-template-columns: 1fr;
+    }
+  }
+  
