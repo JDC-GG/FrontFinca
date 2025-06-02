@@ -1,23 +1,45 @@
-/* Contenedor principal */
+/* Contenedor principal con fondo */
 .main-container {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   padding: 2rem;
-  background-color: #f5f7fa;
   min-height: 100vh;
   box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+
+  background-image: url('/assets/images/fondo3.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.3); 
+    backdrop-filter: blur(3px);
+    z-index: 0;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
 }
 
 /* Tarjeta del formulario */
 .form-card {
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.88);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   padding: 2rem;
   max-width: 800px;
   width: 100%;
   box-sizing: border-box;
+  z-index: 2;
+  backdrop-filter: blur(6px);
 }
 
 /* Encabezado */
@@ -45,24 +67,27 @@
   gap: 1rem;
 }
 
-/* Campos principales */
+/* Campos */
 .property-form .form-group {
   flex: 1;
   min-width: 200px;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
-/* Cuando queremos que el campo ocupe todo el ancho */
 .property-form .full-width {
   flex: 1 1 100%;
 }
 
-/* Etiquetas */
-.property-form label {
-  font-size: 0.85rem;
-  margin-bottom: 0.3rem;
-  color: #444444;
+/* Etiquetas con emojis */
+.emoji-field label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #444;
 }
 
 /* Inputs, selects y textarea */
@@ -90,6 +115,19 @@
 .property-form textarea {
   resize: vertical;
   font-family: inherit;
+}
+
+/* Punto decorativo fijo */
+.property-form .form-group::after {
+  content: '';
+  position: absolute;
+  top: 0.9rem;
+  right: 0.8rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #9ca3af;
+  opacity: 0.4;
 }
 
 /* Campos checkbox */
@@ -136,7 +174,7 @@
   background-color: #4178c0;
 }
 
-/* Ajustes responsive */
+/* Responsive */
 @media (max-width: 600px) {
   .property-form .form-row {
     flex-direction: column;
