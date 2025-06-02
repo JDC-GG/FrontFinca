@@ -66,49 +66,54 @@ export class FormularioPropiedadComponent implements OnInit {
     return !!(control && control.invalid && (control.dirty || control.touched));
   }
 
+  
   guardarPropiedad(): void {
-    // Verificar que el usuario esté autenticado
-    const usuario = this.authService.getCurrentUser();
-    if (!usuario) {
-      alert('Debes iniciar sesión para crear una propiedad');
-      return;
-    }
-
-    if (this.propiedadForm.invalid) {
-      this.propiedadForm.markAllAsTouched();
-      return;
-    }
-
-    // Construir el objeto que el backend espera (PropiedadDTO)
-    const dto = {
-      ...this.propiedadForm.value,
-      idUsuario: usuario.id   // según tu DTO, campo “idUsuario”
-    };
-
-    this.propiedadService.createPropiedad(dto).subscribe({
-      next: () => {
-        alert('Propiedad guardada exitosamente');
-        // Reiniciar el formulario con valores por defecto
-        this.propiedadForm.reset({
-          nombre: '',
-          departamento: '',
-          municipio: '',
-          descripcion: '',
-          habitaciones: 1,
-          banos: 1,
-          mascotas: false,
-          piscina: false,
-          asador: false,
-          valorNoche: 0,
-          tipoIngreso: '',
-          status: 'ACTIVA'
-        });
-        this.router.navigate(['/propiedades']);
-      },
-      error: (err) => {
-        console.error('Error al guardar propiedad', err);
-        alert('Error al guardar la propiedad');
-      }
-    });
+  const usuario = this.authService.getCurrentUser();
+  if (!usuario) {
+    alert('Debes iniciar sesión para crear una propiedad');
+    return;
   }
+
+  if (this.propiedadForm.invalid) {
+    this.propiedadForm.markAllAsTouched();
+    return;
+  }
+
+  // Concatenar departamento + municipio como 'ubicacion'
+  const ubicacion = `${this.propiedadForm.value.departamento}, ${this.propiedadForm.value.municipio}`;
+
+  const dto = {
+  nombre: this.propiedadForm.value.nombre,
+  ubicacion: `${this.propiedadForm.value.departamento}, ${this.propiedadForm.value.municipio}`,
+  precio: this.propiedadForm.value.valorNoche,
+  id_usuario: usuario.id 
+};
+
+
+  this.propiedadService.createPropiedad(dto).subscribe({
+    next: () => {
+      alert('Propiedad guardada exitosamente');
+      this.propiedadForm.reset({
+        nombre: '',
+        departamento: '',
+        municipio: '',
+        descripcion: '',
+        habitaciones: 1,
+        banos: 1,
+        mascotas: false,
+        piscina: false,
+        asador: false,
+        valorNoche: 0,
+        tipoIngreso: '',
+        status: 'ACTIVA'
+      });
+      this.router.navigate(['/propiedades']);
+    },
+    error: (err) => {
+      console.error('Error al guardar propiedad', err);
+      alert('Error al guardar la propiedad');
+    }
+  });
+}
+
 }

@@ -20,16 +20,17 @@ export class PropiedadService {
   }
 
   getPropiedad(id: number): Observable<Propiedad> {
-    const token = localStorage.getItem('token') || '';
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<Propiedad>(`${this.apiUrl}/${id}`, { headers });
-  }
+  const token = localStorage.getItem('token') || '';
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.http.get<Propiedad>(`${this.apiUrl}/${id}`, { headers });
+}
 
-  createPropiedad(propiedad: Propiedad): Observable<Propiedad> {
-    const token = localStorage.getItem('token') || '';
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post<Propiedad>(this.apiUrl, propiedad, { headers });
-  }
+
+  createPropiedad(dto: Partial<Propiedad>): Observable<any> {
+  const token = localStorage.getItem('token') || '';
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.http.post<Propiedad>(this.apiUrl, dto, { headers });
+}
 
   updatePropiedad(id: number, propiedad: Propiedad): Observable<Propiedad> {
     const token = localStorage.getItem('token') || '';

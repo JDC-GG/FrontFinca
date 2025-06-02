@@ -12,7 +12,7 @@ import { arriendo } from '../../models/arriendo.model';
 export class ArriendoService {
 
   // La URL base ya apunta a /solicitud-arriendo
-  private apiUrl = `${environment.apiUrl}/solicitud-arriendo`;
+ private apiUrl = `${environment.apiUrl}/solicitud`; 
 
   constructor(private http: HttpClient) { }
 
@@ -67,4 +67,30 @@ export class ArriendoService {
     });
     return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
   }
+
+  
+  ////
+  // Obtener solicitudes que han hecho a las propiedades de este dueño
+getSolicitudesRecibidas(idDueno: number): Observable<arriendo[]> {
+  const token = localStorage.getItem('token') || '';
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.http.get<arriendo[]>(`${this.apiUrl}/recibidas/${idDueno}`, { headers });
+}
+
+// Aceptar una solicitud
+aceptarSolicitud(id: number): Observable<arriendo> {
+  const token = localStorage.getItem('token') || '';
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.http.put<arriendo>(`${this.apiUrl}/${id}/aceptar`, {}, { headers });
+}
+
+// Rechazar una solicitud
+rechazarSolicitud(id: number): Observable<arriendo> {
+  const token = localStorage.getItem('token') || '';
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.http.put<arriendo>(`${this.apiUrl}/${id}/rechazar`, {}, { headers });
+}
+
+
+
 }

@@ -12,6 +12,8 @@ import { RegistroComponent } from './components/auth/registro/registro.component
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { FormularioUsuarioComponent } from './components/usuario/formulario-usuario/formulario-usuario.component';
 import { ListaSolicitudesComponent } from './components/arriendo/lista-solicitudes/lista-solicitudes.component';
+import { SolicitudesRecibidasComponent } from './pages/solicitudes-recibidas/solicitudes-recibidas.component';
+
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -24,7 +26,8 @@ export const routes: Routes = [
   { path: 'arriendos/solicitar/:id', component: SolicitudArriendoComponent },
   { path: 'usuarios', component: ListaUsuariosComponent },
   { path: 'usuarios/calificar', component: FormularioUsuarioComponent },
-
+  { path: 'solicitudes-recibidas', component: SolicitudesRecibidasComponent },
+  
   {
     path: '',
     component: AuthLayoutComponent,

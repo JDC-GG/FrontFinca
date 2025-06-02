@@ -152,11 +152,13 @@ export class SolicitudArriendoComponent implements OnInit {
     const cp = Number(this.solicitudForm.value.cantidadPersonas);
 
     // Construimos el objeto que pide el servicio:
+    const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
     const dto = {
       propiedadId: this.propiedad.id,
       fechaLlegada: fLlegada,
       fechaSalida: fSalida,
-      cantidadPersonas: cp
+      cantidadPersonas: cp,
+      usuarioId: usuario.id,
     };
 
     this.arriendoService.createArriendo(dto).subscribe({
