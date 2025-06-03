@@ -1,0 +1,23 @@
+<div class="contenedor">
+  <h2>Solicitudes Recibidas</h2>
+
+  <div *ngIf="isLoading">Cargando...</div>
+  <div *ngIf="error">{{ error }}</div>
+
+  <div *ngIf="!isLoading && !error && solicitudes.length === 0">
+    <p>No tienes solicitudes aún.</p>
+  </div>
+
+  <div *ngFor="let solicitud of solicitudes" class="tarjeta">
+    <p><strong>ID Solicitud:</strong> {{ solicitud.id }}</p>
+    <p><strong>Propiedad:</strong> ID {{ solicitud.propiedadId }}</p>
+    <p><strong>Usuario solicitante:</strong> ID {{ solicitud.usuarioId }}</p>
+    <p><strong>Fecha:</strong> {{ solicitud.fechaSolicitud | date }}</p>
+    <p><strong>Estado:</strong> {{ solicitud.estado }}</p>
+
+    <div *ngIf="solicitud.estado === 'PENDIENTE'">
+      <button (click)="aceptar(solicitud.id!)">Aceptar</button>
+      <button (click)="rechazar(solicitud.id!)">Rechazar</button>
+    </div>
+  </div>
+</div>

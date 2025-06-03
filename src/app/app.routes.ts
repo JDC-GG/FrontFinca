@@ -14,7 +14,6 @@ import { FormularioUsuarioComponent } from './components/usuario/formulario-usua
 import { ListaSolicitudesComponent } from './components/arriendo/lista-solicitudes/lista-solicitudes.component';
 import { SolicitudesRecibidasComponent } from './pages/solicitudes-recibidas/solicitudes-recibidas.component';
 
-
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'propiedades', component: ListaPropiedadesComponent },
@@ -27,7 +26,15 @@ export const routes: Routes = [
   { path: 'usuarios', component: ListaUsuariosComponent },
   { path: 'usuarios/calificar', component: FormularioUsuarioComponent },
   { path: 'solicitudes-recibidas', component: SolicitudesRecibidasComponent },
+
   
+  {
+    path: 'ver-solicitudes',
+    loadComponent: () =>
+      import('./components/arrendador/solicitudes-recibidas/solicitudes-recibidas.component')
+        .then(m => m.SolicitudesRecibidasComponent)
+  },
+
   {
     path: '',
     component: AuthLayoutComponent,
@@ -37,5 +44,13 @@ export const routes: Routes = [
     ]
   },
 
+  {
+  path: 'arriendos/pagar/:id',
+  loadComponent: () =>
+    import('./components/arriendo/pago-arriendo/pago-arriendo.component')
+      .then(m => m.PagoArriendoComponent)
+},
+
+  
   { path: '**', redirectTo: '' }
 ];

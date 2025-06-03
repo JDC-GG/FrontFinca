@@ -1,5 +1,3 @@
-// src/app/core/services/arriendo.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -11,12 +9,11 @@ import { arriendo } from '../../models/arriendo.model';
 })
 export class ArriendoService {
 
-  // La URL base ya apunta a /solicitud-arriendo
- private apiUrl = `${environment.apiUrl}/solicitud`; 
+  private apiUrl = `${environment.apiUrl}/solicitud`; // Endpoint base para solicitudes
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  // Crear nueva solicitud
+  // Crear nueva solicitud de arriendo
   createArriendo(dto: {
     propiedadId: number;
     fechaLlegada: string;
@@ -28,28 +25,28 @@ export class ArriendoService {
     return this.http.post<arriendo>(this.apiUrl, dto, { headers });
   }
 
-  // Obtener solo las solicitudes del usuario logueado
+  // Obtener solicitudes del usuario autenticado
   getMisArriendos(): Observable<arriendo[]> {
     const token = localStorage.getItem('token') || '';
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    // Aquí va GET /solicitud-arriendo/mis-solicitudes
     return this.http.get<arriendo[]>(`${this.apiUrl}/mis-solicitudes`, { headers });
   }
 
-  // (Opcional: si necesitas en otra pantalla “todas” las solicitudes)
+  // Obtener todas las solicitudes (opcional)
   getArriendos(): Observable<arriendo[]> {
     const token = localStorage.getItem('token') || '';
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<arriendo[]>(this.apiUrl, { headers });
   }
 
-  // (Y el resto de métodos, si los necesitas:)
+  // Obtener solicitud individual por ID
   getArriendo(id: number): Observable<arriendo> {
     const token = localStorage.getItem('token') || '';
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<arriendo>(`${this.apiUrl}/${id}`, { headers });
   }
 
+  // Actualizar una solicitud existente
   updateArriendo(id: number, cambios: Partial<arriendo>): Observable<arriendo> {
     const token = localStorage.getItem('token') || '';
     const headers = new HttpHeaders({
@@ -59,6 +56,7 @@ export class ArriendoService {
     return this.http.put<arriendo>(`${this.apiUrl}/${id}`, cambios, { headers });
   }
 
+  // Eliminar una solicitud
   deleteArriendo(id: number): Observable<void> {
     const token = localStorage.getItem('token') || '';
     const headers = new HttpHeaders({
@@ -68,29 +66,24 @@ export class ArriendoService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
   }
 
-  
-  ////
-  // Obtener solicitudes que han hecho a las propiedades de este dueño
-getSolicitudesRecibidas(idDueno: number): Observable<arriendo[]> {
-  const token = localStorage.getItem('token') || '';
-  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-  return this.http.get<arriendo[]>(`${this.apiUrl}/recibidas/${idDueno}`, { headers });
-}
+  // Obtener solicitudes recibidas por el dueño de propiedades
+  getSolicitudesRecibidas(idDueno: number): Observable<arriendo[]> {
+    const token = localStorage.getItem('token') || '';
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<arriendo[]>(`${this.apiUrl}/dueno/${idDueno}`, { headers });
+  }
 
-// Aceptar una solicitud
-aceptarSolicitud(id: number): Observable<arriendo> {
-  const token = localStorage.getItem('token') || '';
-  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-  return this.http.put<arriendo>(`${this.apiUrl}/${id}/aceptar`, {}, { headers });
-}
+  // Aceptar solicitud
+  aceptarSolicitud(id: number): Observable<arriendo> {
+    const token = localStorage.getItem('token') || '';
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put<arriendo>(`${this.apiUrl}/${id}/aceptar`, {}, { headers });
+  }
 
-// Rechazar una solicitud
-rechazarSolicitud(id: number): Observable<arriendo> {
-  const token = localStorage.getItem('token') || '';
-  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-  return this.http.put<arriendo>(`${this.apiUrl}/${id}/rechazar`, {}, { headers });
-}
-
-
-
+  // Rechazar solicitud
+  rechazarSolicitud(id: number): Observable<arriendo> {
+    const token = localStorage.getItem('token') || '';
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put<arriendo>(`${this.apiUrl}/${id}/rechazar`, {}, { headers });
+  }
 }

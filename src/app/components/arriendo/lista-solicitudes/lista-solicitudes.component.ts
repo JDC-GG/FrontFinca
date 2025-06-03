@@ -35,16 +35,18 @@ export class ListaSolicitudesComponent implements OnInit {
 
     this.arriendoService.getMisArriendos().subscribe({
       next: (lista: arriendo[]) => {
-        // 1) Filtrar solo las que están en PENDIENTE_PAGO, ordenándolas DESC por fechaSolicitud
+        console.log('🔍 Solicitudes desde backend:', lista);
+
+        // Mostrar solo las solicitudes aceptadas pendientes de pago
         this.solicitudesPendientes = lista
           .filter((s) => s.estado === 'PENDIENTE_PAGO')
           .sort((a, b) =>
             (b.fechaSolicitud || '').localeCompare(a.fechaSolicitud || '')
           );
 
-        // 2) Historial completo: todas, ordenadas DESC por fechaSolicitud
+        // Mostrar todas en el historial (ordenadas por fecha)
         this.historialSolicitudes = lista
-          .slice() // clonamos para no mutar el arreglo original
+          .slice()
           .sort((a, b) =>
             (b.fechaSolicitud || '').localeCompare(a.fechaSolicitud || '')
           );
@@ -59,9 +61,6 @@ export class ListaSolicitudesComponent implements OnInit {
     });
   }
 
-  /**
-   * Formatea un string ISO de fecha/hora en formato “dd/MM/yyyy HH:mm”
-   */
   formatearFechaHora(iso: string | undefined): string {
     if (!iso) return '';
     const d = new Date(iso);
@@ -79,7 +78,6 @@ export class ListaSolicitudesComponent implements OnInit {
     return `${fechaPart} ${horaPart}`;
   }
 
-  
   irAPago(solicitudId: number | undefined): void {
     if (!solicitudId) return;
     this.router.navigate(['/arriendos/pago', solicitudId]);

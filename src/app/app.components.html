@@ -1,5 +1,3 @@
-<!-- src/app/app.components.html -->
-
 <nav class="navbar">
   <a class="logo" routerLink="/">
     <i class="fas fa-home"></i> FincaRen
@@ -17,8 +15,18 @@
         <a routerLink="/propiedades" routerLinkActive="active">Manage Property</a>
       </li>
 
+      <!-- Arrendatario ve su historial de solicitudes -->
       <li *ngIf="usuario.rol === 'ARRENDATARIO'">
-        <a routerLink="/arriendos/solicitudes" routerLinkActive="active">Ver Solicitudes de Arriendo</a>
+        <a routerLink="/arriendos/solicitudes" routerLinkActive="active">
+          Ver Solicitudes de Arriendo
+        </a>
+      </li>
+
+      <!-- Arrendador ve las solicitudes recibidas -->
+      <li *ngIf="usuario.rol === 'ARRENDADOR'">
+        <a routerLink="/ver-solicitudes" routerLinkActive="active">
+          Ver Solicitudes de Arriendo
+        </a>
       </li>
     </ng-container>
   </ul>
