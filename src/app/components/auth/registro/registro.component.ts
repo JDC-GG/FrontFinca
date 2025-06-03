@@ -12,6 +12,7 @@ import { UsuarioService } from '../../../core/services/usuario.service';
 })
 export class RegistroComponent {
   registroForm: FormGroup;
+  errorMsg: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -21,10 +22,14 @@ export class RegistroComponent {
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
       telefono: ['', Validators.required],
-
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
-      rol: ['', Validators.required] // 👈 Nuevo campo de selección de rol
+      rol: ['', Validators.required]
+    });
+
+    // Limpiar el mensaje de error al modificar cualquier campo
+    this.registroForm.valueChanges.subscribe(() => {
+      this.errorMsg = null;
     });
   }
 
@@ -34,10 +39,9 @@ export class RegistroComponent {
         nombre: this.registroForm.value.nombre,
         apellido: this.registroForm.value.apellido,
         telefono: this.registroForm.value.telefono,
-
         correo: this.registroForm.value.email,
         contrasena: this.registroForm.value.password,
-        rol: this.registroForm.value.rol // 👈 Se envía el rol
+        rol: this.registroForm.value.rol
       };
 
       console.log('Formulario enviado:', nuevoUsuario);
@@ -48,12 +52,12 @@ export class RegistroComponent {
           this.registroForm.reset();
         },
         error: (err) => {
-          alert('Error al registrar: ' + (err?.error?.message || 'Error desconocido'));
+          this.errorMsg = err?.error?.message || 'Error desconocido al registrar.';
           console.error(err);
         }
       });
     } else {
-      alert('Por favor completa todos los campos correctamente.');
+      this.errorMsg = 'Por favor completa todos los campos correctamente.';
     }
   }
 }
