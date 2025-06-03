@@ -25,11 +25,10 @@ export const routes: Routes = [
   { path: 'arriendos/solicitar/:id', component: SolicitudArriendoComponent },
   { path: 'usuarios', component: ListaUsuariosComponent },
   { path: 'usuarios/calificar', component: FormularioUsuarioComponent },
-  { path: 'solicitudes-recibidas', component: SolicitudesRecibidasComponent },
 
   
   {
-    path: 'ver-solicitudes',
+    path: 'ver-solicitudes', 
     loadComponent: () =>
       import('./components/arrendador/solicitudes-recibidas/solicitudes-recibidas.component')
         .then(m => m.SolicitudesRecibidasComponent)

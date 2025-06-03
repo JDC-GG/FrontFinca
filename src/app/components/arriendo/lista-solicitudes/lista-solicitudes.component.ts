@@ -2,8 +2,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
-
+import { Router, RouterModule } from '@angular/router';
 import { ArriendoService } from '../../../core/services/arriendo.service';
 import { arriendo } from '../../../models/arriendo.model';
 
@@ -20,10 +19,7 @@ export class ListaSolicitudesComponent implements OnInit {
   cargando = true;
   errorMsg: string | null = null;
 
-  constructor(
-    private arriendoService: ArriendoService,
-    private router: Router
-  ) {}
+  constructor(private arriendoService: ArriendoService, private router: Router) {}
 
   ngOnInit(): void {
     this.cargarTodasLasSolicitudes();
@@ -35,16 +31,14 @@ export class ListaSolicitudesComponent implements OnInit {
 
     this.arriendoService.getMisArriendos().subscribe({
       next: (lista: arriendo[]) => {
-        console.log('🔍 Solicitudes desde backend:', lista);
-
-        // Mostrar solo las solicitudes aceptadas pendientes de pago
+        // -> Estado PENDIENTE_PAGO: muestra botón “Ir a Pago”
         this.solicitudesPendientes = lista
-          .filter((s) => s.estado === 'PENDIENTE_PAGO')
+          .filter(s => s.estado === 'PENDIENTE_PAGO')
           .sort((a, b) =>
             (b.fechaSolicitud || '').localeCompare(a.fechaSolicitud || '')
           );
 
-        // Mostrar todas en el historial (ordenadas por fecha)
+        // -> Historial (muestra todas las solicitudes, sea cual sea el estado)
         this.historialSolicitudes = lista
           .slice()
           .sort((a, b) =>
@@ -53,7 +47,7 @@ export class ListaSolicitudesComponent implements OnInit {
 
         this.cargando = false;
       },
-      error: (err) => {
+      error: err => {
         console.error('Error al cargar solicitudes:', err);
         this.errorMsg = 'No se pudo cargar el historial de solicitudes.';
         this.cargando = false;
@@ -78,8 +72,8 @@ export class ListaSolicitudesComponent implements OnInit {
     return `${fechaPart} ${horaPart}`;
   }
 
-  irAPago(solicitudId: number | undefined): void {
-    if (!solicitudId) return;
-    this.router.navigate(['/arriendos/pago', solicitudId]);
+  irAPago(id: number): void {
+    this.router.navigate(['/arriendos/pagar', id]);
   }
+
 }

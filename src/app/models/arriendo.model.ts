@@ -19,5 +19,6 @@ export interface arriendo {
   cantidadPersonas?: number;      
   valorTotal?: number;           
 
-  estado?: string;                
+  estado: string;        
+  nombreUsuario?: string;        
 }

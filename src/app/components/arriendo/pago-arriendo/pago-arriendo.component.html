@@ -1,0 +1,80 @@
+<!-- src/app/components/arriendo/pago-arriendo/pago-arriendo.component.html -->
+
+<div class="contenedor-pago">
+    <!-- Título -->
+    <h1>Pago de Solicitud de Arriendo</h1>
+  
+    <!-- Mensaje de carga / error -->
+    <div *ngIf="isLoading" class="alert alert-info">
+      Cargando datos de la solicitud…
+    </div>
+    <div *ngIf="errorMsg" class="alert alert-danger">
+      {{ errorMsg }}
+    </div>
+  
+    <!-- Formulario de pago: solo mostrar cuando arriendo esté cargado y no haya error -->
+    <form
+      *ngIf="!isLoading && !errorMsg && arriendo"
+      (ngSubmit)="realizarPago()"
+      #formPago="ngForm"
+      class="form-pago"
+    >
+      <!-- Valor (solo lectura) -->
+      <div class="form-group">
+        <label for="valor">Valor Total</label>
+        <input
+          id="valor"
+          name="valor"
+          type="text"
+          class="form-control"
+          [value]="arriendo.valorTotal | number:'1.0-0'"
+          readonly
+        />
+      </div>
+  
+      <!-- Banco (select) -->
+      <div class="form-group">
+        <label for="banco">Banco</label>
+        <select
+          id="banco"
+          name="banco"
+          class="form-control"
+          required
+          [(ngModel)]="bancoSeleccionado"
+        >
+          <option value="" disabled selected>Seleccione un banco</option>
+          <option *ngFor="let b of bancos" [value]="b">
+            {{ b }}
+          </option>
+        </select>
+      </div>
+  
+      <!-- Número de cuenta -->
+      <div class="form-group">
+        <label for="numeroCuenta">Número de Cuenta</label>
+        <input
+          id="numeroCuenta"
+          name="numeroCuenta"
+          type="text"
+          class="form-control"
+          placeholder="Ingrese su número de cuenta"
+          required
+          minlength="6"
+          maxlength="20"
+          [(ngModel)]="numeroCuenta"
+        />
+      </div>
+  
+      <!-- Botón de envío -->
+      <div class="form-group boton-container">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="formPago.invalid"
+        >
+          Realizar Pago
+        </button>
+      </div>
+    </form>
+  </div>
+  

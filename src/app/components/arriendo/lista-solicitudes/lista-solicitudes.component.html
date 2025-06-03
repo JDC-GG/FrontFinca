@@ -1,117 +1,62 @@
 <!-- src/app/components/arriendo/lista-solicitudes/lista-solicitudes.component.html -->
 
-<div class="contenedor-solicitudes">
-  <h2>Solicitudes Pendientes de Pago</h2>
+<div class="contenedor">
+  <h1>Solicitudes Pendientes de Pago</h1>
 
-  <!-- Mensaje “Cargando…” -->
-  <div *ngIf="cargando" class="mensaje-centrado">
-    <p>Cargando solicitudes…</p>
-  </div>
+  <div *ngIf="cargando">Cargando…</div>
+  <div *ngIf="errorMsg">{{ errorMsg }}</div>
 
-  <!-- Error general -->
-  <div *ngIf="!cargando && errorMsg" class="error-general">
-    <p>{{ errorMsg }}</p>
-  </div>
-
-  <!-- Listado de tarjetas para solicitudes pendientes -->
-  <div
-    *ngIf="!cargando && !errorMsg && solicitudesPendientes.length > 0"
-    class="grid-solicitudes"
-  >
-    <div class="tarjeta-solicitud" *ngFor="let s of solicitudesPendientes">
-      <div class="header-solicitud">
-        <span class="etiqueta-id">Solicitud #{{ s.id }}</span>
-        <span class="fecha-solicitud">
-          {{ formatearFechaHora(s.fechaSolicitud) }}
-        </span>
-      </div>
-      <hr />
-
-      <ul class="detalles-solicitud">
-        <li>
-          <strong>Propiedad:</strong> {{ s.nombrePropiedad }}
-        </li>
-        <li>
-          <strong>Fecha llegada:</strong> {{ s.fechaLlegada }}
-        </li>
-        <li>
-          <strong>Fecha salida:</strong> {{ s.fechaSalida }}
-        </li>
-        <li>
-          <strong>Cant. personas:</strong> {{ s.cantidadPersonas }}
-        </li>
-        <li>
-          <strong>Valor total:</strong> ${{ s.valorTotal | number:'1.0-0' }}
-        </li>
-      </ul>
-
-      <div class="botones-solicitud">
-        <button class="btn-pago" (click)="irAPago(s.id)">
-          Ir a Pago
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Si no hay solicitudes pendientes -->
-  <div
-    *ngIf="!cargando && !errorMsg && solicitudesPendientes.length === 0"
-    class="mensaje-centrado"
-  >
+  <!-- Si no hay pendientes -->
+  <div *ngIf="!cargando && !errorMsg && solicitudesPendientes.length === 0">
     <p>No tienes solicitudes pendientes de pago.</p>
   </div>
 
-  <!-- —— Separador —— -->
-  <div class="separador"></div>
-
-  <h2>Historial de Solicitudes</h2>
-
-  <!-- Listado de tarjetas para el historial completo -->
-  <div
-    *ngIf="!cargando && !errorMsg && historialSolicitudes.length > 0"
-    class="grid-solicitudes"
-  >
-    <div class="tarjeta-solicitud" *ngFor="let s of historialSolicitudes">
-      <div class="header-solicitud">
-        <span class="etiqueta-id">Solicitud #{{ s.id }}</span>
-        <span class="fecha-solicitud">
-          {{ formatearFechaHora(s.fechaSolicitud) }}
-        </span>
-      </div>
+  <!-- Tarjetas de Pendientes de Pago -->
+  <ng-container *ngFor="let s of solicitudesPendientes">
+    <div class="tarjeta">
+      <p>
+        <strong>Solicitud #{{ s.id }}</strong>
+        <span class="fecha">{{ formatearFechaHora(s.fechaSolicitud) }}</span>
+      </p>
       <hr />
-
-      <ul class="detalles-solicitud">
-        <li>
-          <strong>Propiedad:</strong> {{ s.nombrePropiedad }}
-        </li>
-        <li>
-          <strong>Fecha llegada:</strong> {{ s.fechaLlegada }}
-        </li>
-        <li>
-          <strong>Fecha salida:</strong> {{ s.fechaSalida }}
-        </li>
-        <li>
-          <strong>Cant. personas:</strong> {{ s.cantidadPersonas }}
-        </li>
-        <li>
-          <strong>Valor total:</strong> ${{ s.valorTotal | number:'1.0-0' }}
-        </li>
-        <li>
-          <strong>Estado:</strong> {{ s.estado }}
-        </li>
-        <!-- Mostrar botón de pago si fue aceptada -->
-        <li *ngIf="s.estado === 'ACEPTADA'">
-          <button class="btn-pago" (click)="irAPago(s.id)">Ir a Pago</button>
-        </li>
+      <ul class="detalles">
+        <li><strong>Propiedad:</strong> {{ s.nombrePropiedad }}</li>
+        <li><strong>Fecha llegada:</strong> {{ s.fechaLlegada }}</li>
+        <li><strong>Fecha salida:</strong> {{ s.fechaSalida }}</li>
+        <li><strong>Personas:</strong> {{ s.cantidadPersonas }}</li>
+        <li><strong>Valor total:</strong> ${{ s.valorTotal | number:'1.0-0' }}</li>
       </ul>
-    </div>
-  </div>
 
-  <!-- Si no hay historial (caso muy poco probable) -->
-  <div
-    *ngIf="!cargando && !errorMsg && historialSolicitudes.length === 0"
-    class="mensaje-centrado"
-  >
+      <div class="boton-pagar">
+        <button (click)="irAPago(s.id!)">Ir a Pago</button>
+      </div>
+    </div>
+  </ng-container>
+
+  <hr class="separador" />
+
+  <h1>Historial de Solicitudes</h1>
+  <div *ngIf="!cargando && !errorMsg && historialSolicitudes.length === 0">
     <p>No tienes historial de solicitudes.</p>
   </div>
+
+  <!-- Tarjetas de Historial -->
+  <ng-container *ngFor="let s of historialSolicitudes">
+    <div class="tarjeta">
+      <p>
+        <strong>Solicitud #{{ s.id }}</strong>
+        <span class="fecha">{{ formatearFechaHora(s.fechaSolicitud) }}</span>
+      </p>
+      <hr />
+      <ul class="detalles">
+        <li><strong>Propiedad:</strong> {{ s.nombrePropiedad }}</li>
+        <li><strong>Fecha llegada:</strong> {{ s.fechaLlegada }}</li>
+        <li><strong>Fecha salida:</strong> {{ s.fechaSalida }}</li>
+        <li><strong>Personas:</strong> {{ s.cantidadPersonas }}</li>
+        <li><strong>Valor total:</strong> ${{ s.valorTotal | number:'1.0-0' }}</li>
+        <li><strong>Estado:</strong> {{ s.estado.replace('_', ' ') }}</li>
+      </ul>
+    </div>
+    <hr />
+  </ng-container>
 </div>

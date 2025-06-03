@@ -1,23 +1,43 @@
+<!-- src/app/components/arrendador/solicitudes-recibidas/solicitudes-recibidas.component.html -->
+
 <div class="contenedor">
-  <h2>Solicitudes Recibidas</h2>
+  <h1>Solicitudes Recibidas</h1>
 
-  <div *ngIf="isLoading">Cargando...</div>
-  <div *ngIf="error">{{ error }}</div>
-
-  <div *ngIf="!isLoading && !error && solicitudes.length === 0">
-    <p>No tienes solicitudes aún.</p>
+  <div *ngIf="cargando">Cargando solicitudes…</div>
+  <div *ngIf="!cargando && errorMsg" class="alert alert-danger">
+    {{ errorMsg }}
+  </div>
+  <div *ngIf="!cargando && !errorMsg && solicitudesRecibidas.length === 0">
+    <p>No tienes solicitudes.</p>
   </div>
 
-  <div *ngFor="let solicitud of solicitudes" class="tarjeta">
-    <p><strong>ID Solicitud:</strong> {{ solicitud.id }}</p>
-    <p><strong>Propiedad:</strong> ID {{ solicitud.propiedadId }}</p>
-    <p><strong>Usuario solicitante:</strong> ID {{ solicitud.usuarioId }}</p>
-    <p><strong>Fecha:</strong> {{ solicitud.fechaSolicitud | date }}</p>
-    <p><strong>Estado:</strong> {{ solicitud.estado }}</p>
+  <ng-container *ngIf="!cargando && !errorMsg">
+    <ng-container *ngFor="let s of solicitudesRecibidas">
+      <div class="tarjeta">
+        <p>
+          <strong>Solicitud #{{ s.id }}</strong>
+          <span class="fecha">
+            {{ formatearFechaHora(s.fechaSolicitud) }}
+          </span>
+        </p>
+        <hr />
+        <ul class="detalles">
+          <li><strong>Propiedad:</strong> {{ s.nombrePropiedad }}</li>
+          <!-- Aquí aparece el campo nombreUsuario que acabas de agregar -->
+          <li><strong>Solicitante:</strong> {{ s.nombreUsuario }}</li>
+          <li><strong>Fecha llegada:</strong> {{ s.fechaLlegada }}</li>
+          <li><strong>Fecha salida:</strong> {{ s.fechaSalida }}</li>
+          <li><strong>Personas:</strong> {{ s.cantidadPersonas }}</li>
+          <li><strong>Valor total:</strong> ${{ s.valorTotal | number:'1.0-0' }}</li>
+          <li><strong>Estado:</strong> {{ s.estado.replace('_', ' ') }}</li>
+        </ul>
 
-    <div *ngIf="solicitud.estado === 'PENDIENTE'">
-      <button (click)="aceptar(solicitud.id!)">Aceptar</button>
-      <button (click)="rechazar(solicitud.id!)">Rechazar</button>
-    </div>
-  </div>
+        <div *ngIf="s.estado === 'POR_ACEPTAR'" class="acciones">
+          <button (click)="aceptar(s.id!)">Aceptar</button>
+          <button (click)="rechazar(s.id!)">Rechazar</button>
+        </div>
+      </div>
+      <hr />
+    </ng-container>
+  </ng-container>
 </div>

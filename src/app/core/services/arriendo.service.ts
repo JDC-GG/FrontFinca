@@ -1,3 +1,4 @@
+// src/app/core/services/arriendo.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -8,12 +9,11 @@ import { arriendo } from '../../models/arriendo.model';
   providedIn: 'root'
 })
 export class ArriendoService {
+  private apiUrl = `${environment.apiUrl}/solicitud-arriendo`;
 
-  private apiUrl = `${environment.apiUrl}/solicitud`; // Endpoint base para solicitudes
+  constructor(private http: HttpClient) { }
 
-  constructor(private http: HttpClient) {}
-
-  // Crear nueva solicitud de arriendo
+  // Crear nueva solicitud
   createArriendo(dto: {
     propiedadId: number;
     fechaLlegada: string;
@@ -25,65 +25,77 @@ export class ArriendoService {
     return this.http.post<arriendo>(this.apiUrl, dto, { headers });
   }
 
-  // Obtener solicitudes del usuario autenticado
+  // Listar solicitudes del arrendatario actual
   getMisArriendos(): Observable<arriendo[]> {
     const token = localStorage.getItem('token') || '';
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<arriendo[]>(`${this.apiUrl}/mis-solicitudes`, { headers });
   }
 
-  // Obtener todas las solicitudes (opcional)
-  getArriendos(): Observable<arriendo[]> {
-    const token = localStorage.getItem('token') || '';
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<arriendo[]>(this.apiUrl, { headers });
-  }
-
-  // Obtener solicitud individual por ID
-  getArriendo(id: number): Observable<arriendo> {
-    const token = localStorage.getItem('token') || '';
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<arriendo>(`${this.apiUrl}/${id}`, { headers });
-  }
-
-  // Actualizar una solicitud existente
-  updateArriendo(id: number, cambios: Partial<arriendo>): Observable<arriendo> {
-    const token = localStorage.getItem('token') || '';
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.put<arriendo>(`${this.apiUrl}/${id}`, cambios, { headers });
-  }
-
-  // Eliminar una solicitud
-  deleteArriendo(id: number): Observable<void> {
-    const token = localStorage.getItem('token') || '';
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
-  }
-
-  // Obtener solicitudes recibidas por el dueño de propiedades
-  getSolicitudesRecibidas(idDueno: number): Observable<arriendo[]> {
-    const token = localStorage.getItem('token') || '';
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<arriendo[]>(`${this.apiUrl}/dueno/${idDueno}`, { headers });
-  }
-
-  // Aceptar solicitud
+  // Aceptar (propietario)
   aceptarSolicitud(id: number): Observable<arriendo> {
     const token = localStorage.getItem('token') || '';
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.put<arriendo>(`${this.apiUrl}/${id}/aceptar`, {}, { headers });
   }
 
-  // Rechazar solicitud
+  // Rechazar (propietario)
   rechazarSolicitud(id: number): Observable<arriendo> {
     const token = localStorage.getItem('token') || '';
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.put<arriendo>(`${this.apiUrl}/${id}/rechazar`, {}, { headers });
+  }
+
+  // Marcar como pagada (arrendatario tras confirmar pago)
+  pagarSolicitud(id: number): Observable<arriendo> {
+    const token = localStorage.getItem('token') || '';
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put<arriendo>(`${this.apiUrl}/${id}/pagar`, {}, { headers });
+  }
+
+  // (Opcional) si necesitas listar “recibidas por el dueño”:
+  getSolicitudesRecibidas(idDueno: number): Observable<arriendo[]> {
+    const token = localStorage.getItem('token') || '';
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<arriendo[]>(`${this.apiUrl}/dueno/${idDueno}`, { headers });
+  }
+
+
+  /**
+   * Obtener los datos de UNA solicitud de arriendo por su ID.
+   * Esto se usará en el componente de pago para mostrar valor, estado, etc.
+   */
+  getArriendoById(id: number): Observable<arriendo> {
+    const token = localStorage.getItem('token') || '';
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    // Asume que el backend expone GET /solicitud-arriendo/{id}
+    return this.http.get<arriendo>(`${this.apiUrl}/${id}`, { headers });
+  }
+
+  /**
+   * Realizar pago: recibe un objeto con los datos de pago (id, banco, cuenta, valor).
+   * Por ahora internamente solo invoca pagarSolicitud(id), que es PUT /{id}/pagar.
+   * Si más adelante tu backend aceptara banco+cuenta, cambiarías esta lógica.
+   */
+  realizarPago(pagoData: {
+    solicitudId: number;
+    banco: string;
+    numeroCuenta: string;
+    valor: number;
+  }): Observable<arriendo> {
+    // Extraemos el ID de la solicitud
+    const id = pagoData.solicitudId;
+
+    // --- Opcional: podrías enviar el banco y el numeroCuenta en el body,
+    //     si tu backend empieza a aceptar ese payload.
+    //     Por ejemplo:
+    //     return this.http.post<arriendo>(
+    //       `${this.apiUrl}/${id}/pago-completo`,
+    //       { banco: pagoData.banco, numeroCuenta: pagoData.numeroCuenta, valor: pagoData.valor },
+    //       { headers }
+    //     );
+
+    // Por ahora, llamamos al endpoint existente que marca la solicitud como PENDIENTE_PAGO→ACEPTADA:
+    return this.pagarSolicitud(id);
   }
 }
