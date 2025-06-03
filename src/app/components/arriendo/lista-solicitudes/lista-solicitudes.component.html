@@ -1,0 +1,62 @@
+<!-- src/app/components/arriendo/lista-solicitudes/lista-solicitudes.component.html -->
+
+<div class="contenedor">
+  <h1>Solicitudes Pendientes de Pago</h1>
+
+  <div *ngIf="cargando">Cargando…</div>
+  <div *ngIf="errorMsg">{{ errorMsg }}</div>
+
+  <!-- Si no hay pendientes -->
+  <div *ngIf="!cargando && !errorMsg && solicitudesPendientes.length === 0">
+    <p>No tienes solicitudes pendientes de pago.</p>
+  </div>
+
+  <!-- Tarjetas de Pendientes de Pago -->
+  <ng-container *ngFor="let s of solicitudesPendientes">
+    <div class="tarjeta">
+      <p>
+        <strong>Solicitud #{{ s.id }}</strong>
+        <span class="fecha">{{ formatearFechaHora(s.fechaSolicitud) }}</span>
+      </p>
+      <hr />
+      <ul class="detalles">
+        <li><strong>Propiedad:</strong> {{ s.nombrePropiedad }}</li>
+        <li><strong>Fecha llegada:</strong> {{ s.fechaLlegada }}</li>
+        <li><strong>Fecha salida:</strong> {{ s.fechaSalida }}</li>
+        <li><strong>Personas:</strong> {{ s.cantidadPersonas }}</li>
+        <li><strong>Valor total:</strong> ${{ s.valorTotal | number:'1.0-0' }}</li>
+      </ul>
+
+      <div class="boton-pagar">
+        <button (click)="irAPago(s.id!)">Ir a Pago</button>
+      </div>
+    </div>
+  </ng-container>
+
+  <hr class="separador" />
+
+  <h1>Historial de Solicitudes</h1>
+  <div *ngIf="!cargando && !errorMsg && historialSolicitudes.length === 0">
+    <p>No tienes historial de solicitudes.</p>
+  </div>
+
+  <!-- Tarjetas de Historial -->
+  <ng-container *ngFor="let s of historialSolicitudes">
+    <div class="tarjeta">
+      <p>
+        <strong>Solicitud #{{ s.id }}</strong>
+        <span class="fecha">{{ formatearFechaHora(s.fechaSolicitud) }}</span>
+      </p>
+      <hr />
+      <ul class="detalles">
+        <li><strong>Propiedad:</strong> {{ s.nombrePropiedad }}</li>
+        <li><strong>Fecha llegada:</strong> {{ s.fechaLlegada }}</li>
+        <li><strong>Fecha salida:</strong> {{ s.fechaSalida }}</li>
+        <li><strong>Personas:</strong> {{ s.cantidadPersonas }}</li>
+        <li><strong>Valor total:</strong> ${{ s.valorTotal | number:'1.0-0' }}</li>
+        <li><strong>Estado:</strong> {{ s.estado.replace('_', ' ') }}</li>
+      </ul>
+    </div>
+    <hr />
+  </ng-container>
+</div>

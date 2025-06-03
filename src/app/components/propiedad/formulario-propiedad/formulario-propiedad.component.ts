@@ -1,3 +1,4 @@
+// src/app/components/propiedad/formulario-propiedad/formulario-propiedad.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -31,7 +32,7 @@ export class FormularioPropiedadComponent implements OnInit {
   statuses: Opcion[] = [
     { value: 'ACTIVA', label: 'Activa' },
     { value: 'INACTIVA', label: 'Inactiva' }
-    // Si agregas más enums en tu back, añádelos aquí
+    // Si añades más enums en tu back, inclúyelos aquí
   ];
 
   constructor(
@@ -59,7 +60,7 @@ export class FormularioPropiedadComponent implements OnInit {
   }
 
   /**
-   * Devuelve true si el control está inválido y fue tocado o modificado
+   * Comprueba si un campo es inválido y ya fue tocado o modificado.
    */
   campoInvalido(controlName: string): boolean {
     const control = this.propiedadForm.get(controlName);
@@ -67,7 +68,6 @@ export class FormularioPropiedadComponent implements OnInit {
   }
 
   guardarPropiedad(): void {
-    // Verificar que el usuario esté autenticado
     const usuario = this.authService.getCurrentUser();
     if (!usuario) {
       alert('Debes iniciar sesión para crear una propiedad');
@@ -79,16 +79,26 @@ export class FormularioPropiedadComponent implements OnInit {
       return;
     }
 
-    // Construir el objeto que el backend espera (PropiedadDTO)
+    // Construimos el objeto DTO con TODOS los campos que el backend espera:
     const dto = {
-      ...this.propiedadForm.value,
-      idUsuario: usuario.id   // según tu DTO, campo “idUsuario”
+      nombre: this.propiedadForm.value.nombre,
+      departamento: this.propiedadForm.value.departamento,
+      municipio: this.propiedadForm.value.municipio,
+      descripcion: this.propiedadForm.value.descripcion,
+      habitaciones: this.propiedadForm.value.habitaciones,
+      banos: this.propiedadForm.value.banos,
+      mascotas: this.propiedadForm.value.mascotas,
+      piscina: this.propiedadForm.value.piscina,
+      asador: this.propiedadForm.value.asador,
+      valorNoche: this.propiedadForm.value.valorNoche,
+      tipoIngreso: this.propiedadForm.value.tipoIngreso,
+      status: this.propiedadForm.value.status,
+      idUsuario: usuario.id
     };
 
     this.propiedadService.createPropiedad(dto).subscribe({
       next: () => {
         alert('Propiedad guardada exitosamente');
-        // Reiniciar el formulario con valores por defecto
         this.propiedadForm.reset({
           nombre: '',
           departamento: '',

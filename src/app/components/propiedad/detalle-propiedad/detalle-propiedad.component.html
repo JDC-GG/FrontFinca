@@ -1,39 +1,49 @@
-<!-- src/app/components/propiedad/detalle-propiedad/detalle-propiedad.component.html -->
-
 <ng-container *ngIf="propiedad$ | async as propiedad; else cargando">
-    <div class="detalle-container">
-      <h2>{{ propiedad.nombre }}</h2>
-      <p><strong>Departamento:</strong> {{ propiedad.departamento }}</p>
-      <p><strong>Municipio:</strong> {{ propiedad.municipio }}</p>
-      <p><strong>Descripción:</strong> {{ propiedad.descripcion }}</p>
-      <p><strong>Tipo de ingreso:</strong> {{ propiedad.tipoIngreso }}</p>
-      <p>
-        <strong>Habitaciones:</strong> {{ propiedad.habitaciones }} &nbsp;
-        <strong>Baños:</strong> {{ propiedad.banos }}
-      </p>
-      <p>
-        <strong>Piscina:</strong>
-        <span *ngIf="propiedad.piscina; else noPiscina">Sí</span>
-        <ng-template #noPiscina>No</ng-template>
-        &nbsp; 
-        <strong>Asador:</strong>
-        <span *ngIf="propiedad.asador; else noAsador">Sí</span>
-        <ng-template #noAsador>No</ng-template>
-      </p>
-      <p>
-        <strong>Mascotas permitidas:</strong>
-        <span *ngIf="propiedad.mascotas; else noMascotas">Sí</span>
-        <ng-template #noMascotas>No</ng-template>
-      </p>
-      <p><strong>Valor por noche:</strong> ${{ propiedad.valorNoche | number:'1.0-0' }}</p>
-      <p><strong>Estado:</strong> {{ propiedad.status }}</p>
-      <p><strong>Propietario (ID):</strong> {{ propiedad.idUsuario }}</p>
-  
-      <button class="btn-volver" (click)="volver()">← Volver</button>
-    </div>
-  </ng-container>
-  
-  <ng-template #cargando>
-    <p>Cargando detalle de la propiedad…</p>
-  </ng-template>
-  
+  <div class="detalle-container">
+    <h2>{{ propiedad.nombre }}</h2>
+    <p><strong>Departamento:</strong> {{ propiedad.departamento }}</p>
+    <p><strong>Municipio:</strong> {{ propiedad.municipio }}</p>
+    <p><strong>Descripción:</strong> {{ propiedad.descripcion }}</p>
+    <p><strong>Tipo de ingreso:</strong> {{ propiedad.tipoIngreso }}</p>
+    <p>
+      <strong>Habitaciones:</strong> {{ propiedad.habitaciones }} &nbsp;
+      <strong>Baños:</strong> {{ propiedad.banos }}
+    </p>
+    <p>
+      <strong>Piscina:</strong>
+      <span *ngIf="propiedad.piscina; else noPiscina">Sí</span>
+      <ng-template #noPiscina>No</ng-template>
+      &nbsp;
+      <strong>Asador:</strong>
+      <span *ngIf="propiedad.asador; else noAsador">Sí</span>
+      <ng-template #noAsador>No</ng-template>
+    </p>
+    <p>
+      <strong>Mascotas permitidas:</strong>
+      <span *ngIf="propiedad.mascotas; else noMascotas">Sí</span>
+      <ng-template #noMascotas>No</ng-template>
+    </p>
+    <p><strong>Valor por noche:</strong> ${{ propiedad.valorNoche | number:'1.0-0' }}</p>
+    <p><strong>Estado:</strong> {{ propiedad.status }}</p>
+    <p><strong>Propietario (ID):</strong> {{ propiedad.idUsuario }}</p>
+
+    <!-- ──────────────────────────────────────────────────────────────────────────── -->
+    <!--  BOTÓN “Solicitar arriendo” SOLO PARA USUARIOS DE ROL ARRENDATARIO             -->
+    <ng-container *ngIf="usuario$ | async as usuario">
+      <button
+        *ngIf="usuario.rol === 'ARRENDATARIO'"
+        class="btn-solicitar"
+        (click)="solicitarArriendo(propiedad.id)"
+      >
+        Solicitar arriendo
+      </button>
+    </ng-container>
+    <!-- ──────────────────────────────────────────────────────────────────────────── -->
+
+    <button class="btn-volver" (click)="volver()">← Volver</button>
+  </div>
+</ng-container>
+
+<ng-template #cargando>
+  <p>Cargando detalle de la propiedad…</p>
+</ng-template>

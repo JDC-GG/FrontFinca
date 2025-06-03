@@ -1,0 +1,29 @@
+<h2>Solicitudes Recibidas</h2>
+
+<table *ngIf="solicitudes.length > 0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Propiedad</th>
+      <th>Usuario</th>
+      <th>Fecha</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let solicitud of solicitudes">
+      <td>{{ solicitud.id }}</td>
+      <td>{{ solicitud.propiedadId }}</td>
+      <td>{{ solicitud.usuarioId }}</td>
+      <td>{{ solicitud.fechaSolicitud | date: 'shortDate' }}</td>
+      <td>{{ solicitud.estado }}</td>
+      <td>
+        <button (click)="aceptar(solicitud.id)" [disabled]="solicitud.estado !== 'PENDIENTE'">Aceptar</button>
+        <button (click)="rechazar(solicitud.id)" [disabled]="solicitud.estado !== 'PENDIENTE'">Rechazar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="solicitudes.length === 0">No hay solicitudes recibidas aún.</p>

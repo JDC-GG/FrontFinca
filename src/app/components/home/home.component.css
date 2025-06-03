@@ -10,40 +10,50 @@
   padding: 80px 60px;
   background: linear-gradient(to right, #f0f2ff, #ffffff);
   flex-wrap: wrap;
+  gap: 40px;
 }
 
+/* Texto */
 .text-content {
   flex: 1;
   min-width: 300px;
+  max-width: 550px;
 }
 
 .text-content h1 {
   font-size: 48px;
   color: #2c2e4a;
   margin-bottom: 20px;
+  font-weight: 700;
 }
 
 .text-content p {
   font-size: 18px;
   margin-bottom: 30px;
-  max-width: 500px;
+  line-height: 1.6;
 }
 
+/* Botón CTA */
 .cta-button {
   background-color: #5d5fef;
   color: white;
   border: none;
   padding: 15px 30px;
   font-size: 16px;
-  border-radius: 8px;
+  font-weight: 600;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  box-shadow: 0 4px 12px rgba(93, 95, 239, 0.3);
+  transition: all 0.3s ease;
 }
 
 .cta-button:hover {
   background-color: #4a4ad1;
+  box-shadow: 0 6px 18px rgba(93, 95, 239, 0.4);
+  transform: translateY(-2px);
 }
 
+/* Estadísticas */
 .stats {
   display: flex;
   margin-top: 50px;
@@ -51,16 +61,24 @@
   flex-wrap: wrap;
 }
 
+.stats > div {
+  flex: 1;
+  min-width: 200px;
+}
+
 .stats h2 {
   color: #5d5fef;
   font-size: 24px;
   margin-bottom: 8px;
+  font-weight: 600;
 }
 
 .stats p {
   font-size: 14px;
+  color: #666;
 }
 
+/* Imagen */
 .image-content {
   flex: 1;
   text-align: center;
@@ -68,5 +86,54 @@
 
 .image-content img {
   max-width: 90%;
-  border-radius: 15px;
+  border-radius: 18px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+    padding: 60px 30px;
+    text-align: center;
+  }
+
+  .text-content h1 {
+    font-size: 36px;
+  }
+
+  .cta-button {
+    width: 100%;
+  }
+
+  .stats {
+    justify-content: center;
+  }
+
+  .image-content {
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 40px 20px;
+  }
+
+  .text-content h1 {
+    font-size: 28px;
+  }
+
+  .text-content p {
+    font-size: 16px;
+  }
+
+  .stats h2 {
+    font-size: 20px;
+  }
+
+  .cta-button {
+    font-size: 15px;
+    padding: 12px 24px;
+  }
 }

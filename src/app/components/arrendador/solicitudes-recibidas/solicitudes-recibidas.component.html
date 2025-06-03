@@ -1,0 +1,43 @@
+<!-- src/app/components/arrendador/solicitudes-recibidas/solicitudes-recibidas.component.html -->
+
+<div class="contenedor">
+  <h1>Solicitudes Recibidas</h1>
+
+  <div *ngIf="cargando">Cargando solicitudes…</div>
+  <div *ngIf="!cargando && errorMsg" class="alert alert-danger">
+    {{ errorMsg }}
+  </div>
+  <div *ngIf="!cargando && !errorMsg && solicitudesRecibidas.length === 0">
+    <p>No tienes solicitudes.</p>
+  </div>
+
+  <ng-container *ngIf="!cargando && !errorMsg">
+    <ng-container *ngFor="let s of solicitudesRecibidas">
+      <div class="tarjeta">
+        <p>
+          <strong>Solicitud #{{ s.id }}</strong>
+          <span class="fecha">
+            {{ formatearFechaHora(s.fechaSolicitud) }}
+          </span>
+        </p>
+        <hr />
+        <ul class="detalles">
+          <li><strong>Propiedad:</strong> {{ s.nombrePropiedad }}</li>
+          <!-- Aquí aparece el campo nombreUsuario que acabas de agregar -->
+          <li><strong>Solicitante:</strong> {{ s.nombreUsuario }}</li>
+          <li><strong>Fecha llegada:</strong> {{ s.fechaLlegada }}</li>
+          <li><strong>Fecha salida:</strong> {{ s.fechaSalida }}</li>
+          <li><strong>Personas:</strong> {{ s.cantidadPersonas }}</li>
+          <li><strong>Valor total:</strong> ${{ s.valorTotal | number:'1.0-0' }}</li>
+          <li><strong>Estado:</strong> {{ s.estado.replace('_', ' ') }}</li>
+        </ul>
+
+        <div *ngIf="s.estado === 'POR_ACEPTAR'" class="acciones">
+          <button (click)="aceptar(s.id!)">Aceptar</button>
+          <button (click)="rechazar(s.id!)">Rechazar</button>
+        </div>
+      </div>
+      <hr />
+    </ng-container>
+  </ng-container>
+</div>

@@ -1,0 +1,141 @@
+/* Contenedor general */
+h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin: 2rem 0 1.5rem;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #333;
+  }
+  
+  /* Tabla base */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  
+  /* Encabezado */
+  thead {
+    background-color: #5d5fef;
+    color: #fff;
+  }
+  
+  th {
+    text-align: left;
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+  
+  /* Cuerpo */
+  td {
+    padding: 1rem;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.95rem;
+    color: #333;
+  }
+  
+  /* Última fila sin borde */
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+  
+  /* Estados */
+  td:nth-child(5) {
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+  
+  /* Botones */
+  button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    color: #fff;
+    cursor: not-allowed;
+  }
+  
+  /* Botón aceptar */
+  button:not(:disabled):first-child {
+    background-color: #28a745;
+    color: #fff;
+  }
+  
+  button:not(:disabled):first-child:hover {
+    background-color: #218838;
+  }
+  
+  /* Botón rechazar */
+  button:not(:disabled):last-child {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  
+  button:not(:disabled):last-child:hover {
+    background-color: #c82333;
+  }
+  
+  /* Fallback */
+  p {
+    text-align: center;
+    font-size: 1.1rem;
+    margin-top: 2rem;
+    color: #666;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+      display: block;
+    }
+  
+    thead {
+      display: none;
+    }
+  
+    tr {
+      margin-bottom: 1rem;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      padding: 1rem;
+    }
+  
+    td {
+      padding: 0.5rem 0;
+      text-align: left;
+      position: relative;
+    }
+  
+    td::before {
+      content: attr(data-label);
+      font-weight: bold;
+      display: block;
+      color: #555;
+      margin-bottom: 0.2rem;
+    }
+  
+    button {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+  }
+  

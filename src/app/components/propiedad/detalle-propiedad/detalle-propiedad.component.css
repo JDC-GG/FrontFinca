@@ -1,42 +1,85 @@
 /* src/app/components/propiedad/detalle-propiedad/detalle-propiedad.component.css */
 
 .detalle-container {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    background-color: #fff;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+  max-width: 650px;
+  margin: 3rem auto;
+  padding: 2rem;
+  border-radius: 16px;
+  background-color: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.detalle-container h2 {
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #222;
+  text-align: center;
+}
+
+.detalle-container p {
+  margin: 0.75rem 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #555;
+}
+
+.detalle-container strong {
+  font-weight: 600;
+  color: #2c2c2c;
+}
+
+.btn-solicitar,
+.btn-volver {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Botón principal */
+.btn-solicitar {
+  background-color: #7065f0;
+  color: white;
+  margin-right: 1rem;
+}
+
+.btn-solicitar:hover {
+  background-color: #5a4de0;
+}
+
+/* Botón secundario */
+.btn-volver {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.btn-volver:hover {
+  background-color: #ccc;
+}
+
+/* Responsive ajustes */
+@media (max-width: 480px) {
+  .detalle-container {
+    padding: 1.5rem;
+    margin: 2rem 1rem;
   }
-  
+
   .detalle-container h2 {
-    margin-bottom: 20px;
-    font-size: 28px;
-    color: #333;
+    font-size: 1.6rem;
   }
-  
-  .detalle-container p {
-    margin: 8px 0;
-    font-size: 16px;
-    color: #555;
-  }
-  
-  .detalle-container strong {
-    color: #222;
-  }
-  
+
+  .btn-solicitar,
   .btn-volver {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #5d5fef;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    width: 100%;
+    margin: 0.75rem 0;
   }
-  
-  .btn-volver:hover {
-    background-color: #4b4ddf;
-  }
-  
+}

@@ -1,1 +1,104 @@
-<p>solicitud-arriendo works!</p>
+<!-- src/app/components/arriendo/solicitud-arriendo/solicitud-arriendo.component.html -->
+
+<div class="container-solicitud" *ngIf="propiedad; else cargando">
+    <h2>Solicitar Arriendo de: {{ propiedad.nombre }}</h2>
+  
+    <!-- Información rápida de la propiedad -->
+    <p><strong>Valor por noche:</strong> ${{ propiedad.valorNoche | number:'1.0-0' }}</p>
+    <p><strong>Capacidad máxima:</strong> {{ propiedad.habitaciones }} persona(s)</p>
+  
+    <!-- Formulario Reactivo -->
+    <form [formGroup]="solicitudForm" (ngSubmit)="onSubmit()" novalidate>
+      <!-- Fecha de llegada -->
+      <div class="form-group">
+        <label for="fechaLlegada">Fecha de llegada</label>
+        <input
+          type="date"
+          id="fechaLlegada"
+          formControlName="fechaLlegada"
+          [min]="hoyStr"
+        />
+        <div class="error" *ngIf="solicitudForm.get('fechaLlegada')?.invalid && solicitudForm.get('fechaLlegada')?.touched">
+          <small *ngIf="solicitudForm.get('fechaLlegada')?.errors?.['required']">
+            La fecha de llegada es obligatoria.
+          </small>
+          <small *ngIf="solicitudForm.get('fechaLlegada')?.errors?.['antesDeHoy']">
+            La llegada no puede ser anterior a hoy.
+          </small>
+        </div>
+      </div>
+  
+      <!-- Fecha de salida -->
+      <div class="form-group">
+        <label for="fechaSalida">Fecha de salida</label>
+        <input
+          type="date"
+          id="fechaSalida"
+          formControlName="fechaSalida"
+          [min]="solicitudForm.get('fechaLlegada')?.value || hoyStr"
+        />
+        <div class="error" *ngIf="
+            (solicitudForm.get('fechaSalida')?.invalid && solicitudForm.get('fechaSalida')?.touched)
+            || solicitudForm.errors?.['fechaSalidaInvalida']
+          ">
+          <small *ngIf="solicitudForm.get('fechaSalida')?.errors?.['required']">
+            La fecha de salida es obligatoria.
+          </small>
+          <small *ngIf="solicitudForm.errors?.['fechaSalidaInvalida']">
+            La salida debe ser posterior a la llegada.
+          </small>
+        </div>
+      </div>
+  
+      <!-- Cantidad de personas -->
+      <div class="form-group">
+        <label for="cantidadPersonas">Cantidad de personas</label>
+        <input
+          type="number"
+          id="cantidadPersonas"
+          formControlName="cantidadPersonas"
+          [min]="1"
+          [max]="propiedad.habitaciones"
+        />
+        <div class="error" *ngIf="solicitudForm.get('cantidadPersonas')?.invalid && solicitudForm.get('cantidadPersonas')?.touched">
+          <small *ngIf="solicitudForm.get('cantidadPersonas')?.errors?.['required']">
+            La cantidad de personas es obligatoria.
+          </small>
+          <small *ngIf="solicitudForm.get('cantidadPersonas')?.errors?.['min']">
+            Debe ingresar al menos 1 persona.
+          </small>
+          <small *ngIf="solicitudForm.get('cantidadPersonas')?.errors?.['max']">
+            No puede exceder la capacidad ({{ propiedad.habitaciones }} personas).
+          </small>
+        </div>
+      </div>
+  
+      <!-- Mensaje de error general si falla la petición -->
+      <div class="error-general" *ngIf="errorMsg">
+        {{ errorMsg }}
+      </div>
+  
+      <!-- Botón Enviar -->
+      <button
+        type="submit"
+        class="btn-enviar"
+        [disabled]="solicitudForm.invalid"
+      >
+        Enviar Solicitud
+      </button>
+  
+      <!-- Botón Volver (regresa al detalle de la propiedad) -->
+      <button
+        type="button"
+        class="btn-volver"
+        (click)="router.navigate(['/propiedades', propiedad.id])"
+      >
+        ← Volver
+      </button>
+    </form>
+  </div>
+  
+  <ng-template #cargando>
+    <p>Cargando información de la propiedad…</p>
+  </ng-template>
+  

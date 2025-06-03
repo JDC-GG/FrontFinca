@@ -163,3 +163,9 @@ body {
     padding: 1.5rem;
   }
 }
+
+.error {
+  color: red;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}

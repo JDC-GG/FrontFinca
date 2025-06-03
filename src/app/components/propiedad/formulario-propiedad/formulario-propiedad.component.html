@@ -1,3 +1,4 @@
+<!-- src/app/components/propiedad/formulario-propiedad/formulario-propiedad.component.html -->
 <main class="main-container">
   <section class="form-card">
     <div class="form-header">
@@ -6,83 +7,131 @@
     </div>
 
     <form [formGroup]="propiedadForm" (ngSubmit)="guardarPropiedad()" class="property-form">
-
       <!-- Fila 1 -->
       <div class="form-row">
-        <div class="form-group emoji-field">
-          <label for="nombre">🏠 Nombre *</label>
+        <div class="form-group">
+          <label for="nombre">Nombre *</label>
           <input id="nombre" type="text" placeholder="Nombre de la propiedad" formControlName="nombre" />
+          <small *ngIf="campoInvalido('nombre')" class="error">El nombre es obligatorio.</small>
         </div>
 
-        <div class="form-group emoji-field">
-          <label for="departamento">📍 Departamento *</label>
+        <div class="form-group">
+          <label for="departamento">Departamento *</label>
           <input id="departamento" type="text" placeholder="Departamento" formControlName="departamento" />
+          <small *ngIf="campoInvalido('departamento')" class="error">Este campo es obligatorio.</small>
         </div>
 
-        <div class="form-group emoji-field">
-          <label for="municipio">📌 Municipio *</label>
+        <div class="form-group">
+          <label for="municipio">Municipio *</label>
           <input id="municipio" type="text" placeholder="Municipio" formControlName="municipio" />
+          <small *ngIf="campoInvalido('municipio')" class="error">Este campo es obligatorio.</small>
         </div>
       </div>
 
       <!-- Fila 2 -->
       <div class="form-row">
-        <div class="form-group full-width emoji-field">
-          <label for="descripcion">💬 Descripción *</label>
-          <textarea id="descripcion" rows="4" placeholder="Breve descripción" formControlName="descripcion"></textarea>
+        <div class="form-group full-width">
+          <label for="descripcion">Descripción *</label>
+          <textarea
+            id="descripcion"
+            rows="4"
+            placeholder="Breve descripción"
+            formControlName="descripcion"
+          ></textarea>
+          <small *ngIf="campoInvalido('descripcion')" class="error">
+            La descripción debe tener al menos 10 caracteres.
+          </small>
         </div>
       </div>
 
       <!-- Fila 3 -->
       <div class="form-row">
-        <div class="form-group emoji-field">
-          <label for="habitaciones">🛏️ Habitaciones *</label>
-          <input id="habitaciones" type="number" min="1" placeholder="Cantidad de habitaciones" formControlName="habitaciones" />
+        <div class="form-group">
+          <label for="habitaciones">Habitaciones *</label>
+          <input
+            id="habitaciones"
+            type="number"
+            min="1"
+            placeholder="Cantidad de habitaciones"
+            formControlName="habitaciones"
+          />
+          <small *ngIf="campoInvalido('habitaciones')" class="error">
+            Debes indicar al menos 1 habitación.
+          </small>
         </div>
 
-        <div class="form-group emoji-field">
-          <label for="banos">🛁 Baños *</label>
-          <input id="banos" type="number" min="1" placeholder="Cantidad de baños" formControlName="banos" />
+        <div class="form-group">
+          <label for="banos">Baños *</label>
+          <input
+            id="banos"
+            type="number"
+            min="1"
+            placeholder="Cantidad de baños"
+            formControlName="banos"
+          />
+          <small *ngIf="campoInvalido('banos')" class="error">
+            Debes indicar al menos 1 baño.
+          </small>
         </div>
 
-        <div class="form-group emoji-field">
-          <label for="valorNoche">💰 Valor/Noche (COP) *</label>
-          <input id="valorNoche" type="number" min="0.1" step="0.01" placeholder="Precio por noche" formControlName="valorNoche" />
+        <div class="form-group">
+          <label for="valorNoche">Valor/Noche (COP) *</label>
+          <input
+            id="valorNoche"
+            type="number"
+            min="0.1"
+            step="0.01"
+            placeholder="Precio por noche"
+            formControlName="valorNoche"
+          />
+          <small *ngIf="campoInvalido('valorNoche')" class="error">
+            Debes indicar un valor mayor a 0.
+          </small>
         </div>
       </div>
 
       <!-- Fila 4 -->
       <div class="form-row">
-        <div class="form-group emoji-field">
-          <label for="tipoIngreso">🏷️ Tipo de Ingreso *</label>
+        <div class="form-group">
+          <label for="tipoIngreso">Tipo de Ingreso *</label>
           <select id="tipoIngreso" formControlName="tipoIngreso">
             <option value="" disabled>Selecciona una opción</option>
-            <option *ngFor="let tipo of tiposIngreso" [value]="tipo.value">{{ tipo.label }}</option>
+            <option *ngFor="let tipo of tiposIngreso" [value]="tipo.value">
+              {{ tipo.label }}
+            </option>
           </select>
+          <small *ngIf="campoInvalido('tipoIngreso')" class="error">
+            Selecciona un tipo de ingreso.
+          </small>
         </div>
 
-        <div class="form-group emoji-field">
-          <label for="status">✔️ Estado *</label>
+        <div class="form-group">
+          <label for="status">Estado *</label>
           <select id="status" formControlName="status">
             <option value="" disabled>Selecciona estado</option>
-            <option *ngFor="let st of statuses" [value]="st.value">{{ st.label }}</option>
+            <option *ngFor="let st of statuses" [value]="st.value">
+              {{ st.label }}
+            </option>
           </select>
+          <small *ngIf="campoInvalido('status')" class="error">
+            Selecciona un estado.
+          </small>
         </div>
       </div>
 
-      <!-- Fila 5 -->
+      <!-- Fila 5 (checkboxes) -->
       <div class="form-row">
         <div class="form-checkbox">
           <input type="checkbox" id="mascotas" formControlName="mascotas" />
-          <label for="mascotas">🐶 Permite Mascotas</label>
+          <label for="mascotas">Permite Mascotas</label>
         </div>
         <div class="form-checkbox">
           <input type="checkbox" id="piscina" formControlName="piscina" />
-          <label for="piscina">🏊 Tiene Piscina</label>
+          <label for="piscina">Tiene Piscina</label>
         </div>
         <div class="form-checkbox">
           <input type="checkbox" id="asador" formControlName="asador" />
-          <label for="asador">🔥 Tiene Asador</label>
+          <label for="asador">Tiene Asador</label>
         </div>
       </div>
 
