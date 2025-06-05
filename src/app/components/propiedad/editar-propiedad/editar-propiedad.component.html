@@ -1,76 +1,213 @@
 <!-- src/app/components/propiedad/editar-propiedad/editar-propiedad.component.html -->
 
-<ng-container *ngIf="propiedad$ | async as propiedad; else cargando">
-    <div class="editar-container">
-      <h2>Editar Propiedad: {{ propiedad.nombre }}</h2>
-  
-      <div class="datos-propiedad">
-        <p><strong>Departamento:</strong> {{ propiedad.departamento }}</p>
-        <p><strong>Municipio:</strong> {{ propiedad.municipio }}</p>
-        <p><strong>Descripción:</strong> {{ propiedad.descripcion }}</p>
-        <p><strong>Tipo de ingreso:</strong> {{ propiedad.tipoIngreso }}</p>
-        <p>
-          <strong>Habitaciones:</strong> {{ propiedad.habitaciones }} &nbsp;
-          <strong>Baños:</strong> {{ propiedad.banos }}
-        </p>
-        <p>
-          <strong>Piscina:</strong>
-          <span *ngIf="propiedad.piscina; else noPiscinaE">Sí</span>
-          <ng-template #noPiscinaE>No</ng-template>
-          &nbsp; 
-          <strong>Asador:</strong>
-          <span *ngIf="propiedad.asador; else noAsadorE">Sí</span>
-          <ng-template #noAsadorE>No</ng-template>
-        </p>
-        <p>
-          <strong>Mascotas permitidas:</strong>
-          <span *ngIf="propiedad.mascotas; else noMascotasE">Sí</span>
-          <ng-template #noMascotasE>No</ng-template>
-        </p>
-        <p><strong>Valor por noche:</strong> ${{ propiedad.valorNoche | number:'1.0-0' }}</p>
-        <p><strong>Estado actual:</strong> {{ propiedad.status }}</p>
-        <p><strong>Propietario (ID):</strong> {{ propiedad.idUsuario }}</p>
-      </div>
-  
-      <div class="botones-accion">
-        <!-- Si está activa, mostrar “Desactivar” -->
-        <button 
-          *ngIf="propiedad.status === 'ACTIVA'" 
-          (click)="desactivar(propiedad)" 
-          class="btn-desactivar"
+<ng-container *ngIf="isLoading && !errorMsg">
+  <div class="loading-container">
+    <p>Cargando datos de la propiedad…</p>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="errorMsg">
+  <div class="error-message">{{ errorMsg }}</div>
+</ng-container>
+
+<ng-container *ngIf="!isLoading && !errorMsg">
+  <div class="edit-card">
+    <h2>Editar Propiedad: {{ propiedadForm.value.nombre }}</h2>
+
+    <!-- Formulario -->
+    <form [formGroup]="propiedadForm" (ngSubmit)="guardarCambios()">
+
+      <!-- DATOS BÁSICOS -->
+      <section class="section">
+        <h3>Datos Básicos</h3>
+        <div class="form-grid">
+          <!-- Nombre -->
+          <div class="form-group">
+            <label for="nombre">Nombre *</label>
+            <input
+              id="nombre"
+              type="text"
+              formControlName="nombre"
+              placeholder="Nombre de la propiedad"
+            />
+            <small *ngIf="campoInvalido('nombre')" class="error">Obligatorio</small>
+          </div>
+
+          <!-- Departamento -->
+          <div class="form-group">
+            <label for="departamento">Departamento *</label>
+            <input
+              id="departamento"
+              type="text"
+              formControlName="departamento"
+              placeholder="Departamento"
+            />
+            <small *ngIf="campoInvalido('departamento')" class="error">Obligatorio</small>
+          </div>
+
+          <!-- Municipio -->
+          <div class="form-group">
+            <label for="municipio">Municipio *</label>
+            <input
+              id="municipio"
+              type="text"
+              formControlName="municipio"
+              placeholder="Municipio"
+            />
+            <small *ngIf="campoInvalido('municipio')" class="error">Obligatorio</small>
+          </div>
+        </div>
+      </section>
+
+      <!-- DESCRIPCIÓN -->
+      <section class="section">
+        <h3>Descripción</h3>
+        <div class="form-group full-width">
+          <label for="descripcion">Breve Descripción *</label>
+          <textarea
+            id="descripcion"
+            rows="4"
+            formControlName="descripcion"
+            placeholder="Escribe al menos 10 caracteres"
+          ></textarea>
+          <small *ngIf="campoInvalido('descripcion')" class="error">
+            Debe tener al menos 10 caracteres.
+          </small>
+        </div>
+      </section>
+
+      <!-- CARACTERÍSTICAS -->
+      <section class="section">
+        <h3>Características</h3>
+        <div class="form-grid">
+          <!-- Habitaciones -->
+          <div class="form-group">
+            <label for="habitaciones">Habitaciones *</label>
+            <input
+              id="habitaciones"
+              type="number"
+              min="1"
+              formControlName="habitaciones"
+            />
+            <small *ngIf="campoInvalido('habitaciones')" class="error">
+              Debe ser ≥ 1.
+            </small>
+          </div>
+
+          <!-- Baños -->
+          <div class="form-group">
+            <label for="banos">Baños *</label>
+            <input
+              id="banos"
+              type="number"
+              min="1"
+              formControlName="banos"
+            />
+            <small *ngIf="campoInvalido('banos')" class="error">
+              Debe ser ≥ 1.
+            </small>
+          </div>
+
+          <!-- Valor por Noche -->
+          <div class="form-group">
+            <label for="valorNoche">Valor/Noche (COP) *</label>
+            <input
+              id="valorNoche"
+              type="number"
+              min="0.1"
+              step="0.01"
+              formControlName="valorNoche"
+            />
+            <small *ngIf="campoInvalido('valorNoche')" class="error">
+              Debe ser > 0.
+            </small>
+          </div>
+        </div>
+
+        <!-- Checkboxes Mascotas / Piscina / Asador -->
+        <div class="checkbox-group">
+          <label><input type="checkbox" formControlName="mascotas" /> Permite Mascotas</label>
+          <label><input type="checkbox" formControlName="piscina" /> Tiene Piscina</label>
+          <label><input type="checkbox" formControlName="asador" /> Tiene Asador</label>
+        </div>
+      </section>
+
+      <!-- UBICACIÓN Y ESTADO -->
+      <section class="section">
+        <h3>Ubicación y Estado</h3>
+        <div class="form-grid">
+          <!-- Tipo de Ingreso -->
+          <div class="form-group">
+            <label for="tipoIngreso">Tipo de Ingreso *</label>
+            <select id="tipoIngreso" formControlName="tipoIngreso">
+              <option value="" disabled>Selecciona una opción</option>
+              <option *ngFor="let tipo of tiposIngreso" [value]="tipo.value">
+                {{ tipo.label }}
+              </option>
+            </select>
+            <small *ngIf="campoInvalido('tipoIngreso')" class="error">
+              Seleccione un tipo.
+            </small>
+          </div>
+
+          <!-- Estado -->
+          <div class="form-group">
+            <label for="status">Estado *</label>
+            <select id="status" formControlName="status">
+              <option value="" disabled>Selecciona estado</option>
+              <option *ngFor="let st of statuses" [value]="st.value">
+                {{ st.label }}
+              </option>
+            </select>
+            <small *ngIf="campoInvalido('status')" class="error">
+              Seleccione un estado.
+            </small>
+          </div>
+        </div>
+      </section>
+
+      <!-- BOTONES GUARDAR / VOLVER -->
+      <div class="button-bar">
+        <button
+          type="submit"
+          class="btn btn-save"
+          [disabled]="propiedadForm.invalid"
         >
-          Desactivar
+          Guardar Cambios
         </button>
-  
-        <!-- Si está inactiva, mostrar “Reactivar” -->
-        <button 
-          *ngIf="propiedad.status === 'INACTIVA'" 
-          (click)="reactivar(propiedad)" 
-          class="btn-reactivar"
-        >
-          Reactivar
-        </button>
-  
-        <!-- Botón “Eliminar” siempre -->
-        <button 
-          (click)="eliminar(propiedad.id)" 
-          class="btn-eliminar"
-        >
-          Eliminar
-        </button>
-  
-        <!-- Botón para volver sin cambios -->
-        <button 
-          (click)="volver()" 
-          class="btn-volver"
-        >
+        <button type="button" class="btn btn-back" (click)="volver()">
           ← Volver
         </button>
       </div>
+    </form>
+
+    <!-- LÍNEA SEPARADORA -->
+    <hr class="separator" />
+
+    <!-- ACCIONES SECUNDARIAS (Desactivar / Reactivar / Eliminar) -->
+    <div class="secondary-actions">
+      <button
+        *ngIf="propiedadForm.value.status === 'ACTIVA'"
+        (click)="desactivar()"
+        class="btn btn-deactivate"
+      >
+        Desactivar
+      </button>
+
+      <button
+        *ngIf="propiedadForm.value.status === 'INACTIVA'"
+        (click)="reactivar()"
+        class="btn btn-reactivate"
+      >
+        Reactivar
+      </button>
+
+      <button
+        (click)="eliminar()"
+        class="btn btn-delete"
+      >
+        Eliminar
+      </button>
     </div>
-  </ng-container>
-  
-  <ng-template #cargando>
-    <p>Cargando datos de la propiedad…</p>
-  </ng-template>
-  
+  </div>
+</ng-container>
