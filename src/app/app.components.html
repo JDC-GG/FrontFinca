@@ -5,20 +5,20 @@
 
   <ul class="nav-links">
     <li>
-      <a routerLink="/arriendos" routerLinkActive="active">Rent</a>
+      <a routerLink="/arriendos" routerLinkActive="active">Arriendos</a>
     </li>
 
     <!-- si hay un usuario logueado, checamos rol -->
     <ng-container *ngIf="usuario$ | async as usuario">
       <!-- Solo Arrendador ve “Manage Property” -->
       <li *ngIf="usuario.rol === 'ARRENDADOR'">
-        <a routerLink="/propiedades" routerLinkActive="active">Manage Property</a>
+        <a routerLink="/propiedades" routerLinkActive="active">Administrar Propiedad</a>
       </li>
 
       <!-- Arrendatario ve su historial de solicitudes -->
       <li *ngIf="usuario.rol === 'ARRENDATARIO'">
         <a routerLink="/arriendos/solicitudes" routerLinkActive="active">
-          MIs Solicitudes de Arriendo
+          Mis Solicitudes de Arriendo
         </a>
       </li>
 
@@ -39,8 +39,8 @@
     </ng-container>
 
     <ng-template #mostrarLoginSignUp>
-      <a class="btn login" routerLink="/login">Login</a>
-      <a class="btn signup" routerLink="/registro">Sign up</a>
+      <a class="btn login" routerLink="/login">Iniciar sesión</a>
+      <a class="btn signup" routerLink="/registro">Registro</a>
     </ng-template>
   </div>
 </nav>

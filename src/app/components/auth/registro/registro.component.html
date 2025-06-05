@@ -1,41 +1,41 @@
 <div class="signup-container">
   <div class="signup-header">
-    <h1>Earn more from your property, do less</h1>
-    <h2>Sign up</h2>
+    <h1>Gane más con su propiedad, haga menos</h1>
+    <h2>Registro</h2>
   </div>
 
   <div class="signup-content">
     <form [formGroup]="registroForm" (ngSubmit)="onSubmit()" class="signup-form">
       <div class="form-row">
         <div class="form-group">
-          <label for="nombre">First Name</label>
+          <label for="nombre">Nombre</label>
           <input id="nombre" type="text" placeholder="John" formControlName="nombre" />
         </div>
         <div class="form-group">
-          <label for="apellido">Last Name</label>
+          <label for="apellido">Apellido</label>
           <input id="apellido" type="text" placeholder="Doe" formControlName="apellido" />
         </div>
       </div>
 
       <div class="form-group">
-        <label for="telefono">Phone Number</label>
+        <label for="telefono">Teléfono</label>
         <input id="telefono" type="tel" placeholder="1 234 567 890" formControlName="telefono" />
       </div>
 
       <div class="form-group">
-        <label for="email">Email</label>
+        <label for="email">Correo</label>
         <input id="email" type="email" placeholder="john@example.com" formControlName="email" />
       </div>
 
       <div class="form-group">
-        <label for="password">Password</label>
+        <label for="password">Contraseña</label>
         <input id="password" type="password" placeholder="••••••••" formControlName="password" />
       </div>
 
       <div class="form-group">
-        <label for="rol">Role</label>
+        <label for="rol">Rol</label>
         <select id="rol" formControlName="rol">
-          <option value="" disabled selected>Select your role</option>
+          <option value="" disabled selected>Selecciona tu rol</option>
           <option value="ARRENDADOR">Arrendador</option>
           <option value="ARRENDATARIO">Arrendatario</option>
         </select>
@@ -46,7 +46,7 @@
         {{ errorMsg }}
       </div>
 
-      <button type="submit" class="btn-submit">Create Account</button>
+      <button type="submit" class="btn-submit">Crear Cuenta</button>
     </form>
 
     <div class="signup-image">

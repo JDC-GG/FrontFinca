@@ -52,11 +52,13 @@
   font-size: 1.8rem;
   margin: 0;
   color: #333333;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .form-header p {
   font-size: 0.9rem;
   color: #666666;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 /* Filas del formulario */
@@ -74,6 +76,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .property-form .full-width {
@@ -88,6 +91,7 @@
   align-items: center;
   gap: 0.4rem;
   color: #444;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 /* Inputs, selects y textarea */
@@ -101,6 +105,7 @@
   border-radius: 4px;
   background-color: #fafafa;
   transition: border-color 0.2s, background-color 0.2s;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .property-form input:focus,
@@ -114,7 +119,7 @@
 /* Textarea */
 .property-form textarea {
   resize: vertical;
-  font-family: inherit;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 /* Punto decorativo fijo */
@@ -137,6 +142,7 @@
   gap: 0.5rem;
   flex: 1;
   min-width: 140px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .property-form .form-checkbox input[type="checkbox"] {
@@ -151,6 +157,7 @@
 .property-form .error small {
   color: #d9534f;
   font-size: 0.8rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 /* Botón de envío */
@@ -163,6 +170,7 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.2s;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .property-form .submit-btn:disabled {

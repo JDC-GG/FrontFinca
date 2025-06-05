@@ -1,9 +1,9 @@
 <!-- src/app/components/login/login.component.html -->
 <div class="login-container">
   <div class="login-header">
-    <h1>Let’s hunt for your rental dream residence</h1>
-    <p>Explore our range of beautiful properties with the addition of separate accommodation suitable for you.</p>
-    <h2>Login</h2>
+    <h1>Vamos a buscar la casa de tus sueños</h1>
+    <p>Explore nuestra gama de hermosas propiedades con el añadido de un alojamiento independiente adecuado para usted.</p>
+    <h2>Iniciar sesión</h2>
   </div>
 
   <div class="login-content">
@@ -12,7 +12,7 @@
       <!-- CAMPO CORREO -->
       <input
         type="email"
-        placeholder="Email"
+        placeholder="Correo"
         formControlName="correo"
         [class.invalid]="loginForm.get('correo')?.invalid && loginForm.get('correo')?.touched" />
       <div class="error" *ngIf="loginForm.get('correo')?.invalid && loginForm.get('correo')?.touched">
@@ -23,7 +23,7 @@
       <!-- CAMPO CONTRASEÑA -->
       <input
         type="password"
-        placeholder="Password"
+        placeholder="Contraseña"
         formControlName="contrasena"
         [class.invalid]="loginForm.get('contrasena')?.invalid && loginForm.get('contrasena')?.touched" />
       <div class="error" *ngIf="loginForm.get('contrasena')?.invalid && loginForm.get('contrasena')?.touched">
@@ -36,7 +36,7 @@
         {{ errorMsg }}
       </div>
 
-      <button type="submit" class="btn-submit" [disabled]="loginForm.invalid">Login</button>
+      <button type="submit" class="btn-submit" [disabled]="loginForm.invalid">Iniciar sesión</button>
     </form>
 
     
